@@ -748,3 +748,29 @@ byte < short < char < int < long < float < double
 - `byte/short/char`这三种类型都可以发生数学运算，运算时会被首先提升成为int类型，再计算。
 
 - boolean类型不能发生数据类型转换。
+
+
+
+### Java获取桌面路径
+
+```java
+package javase;
+
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+
+// Java 获取桌面路径
+public class GetDesktopPath {
+    public static void main(String[] args) {
+        // FileSystemView 是 JFileChooser 的文件系统网关
+
+        // public static FileSystemView getFileSystemView() 返回文件系统视图
+        FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+        
+        // public File getHomeDirectory() 返回主目录
+        File homeDirectory = fileSystemView.getHomeDirectory();
+        System.out.println("homeDirectory = " + homeDirectory);
+    }
+}
+```
+
