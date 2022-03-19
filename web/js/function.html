@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function</title>
+</head>
+
+<body>
+    <table border="1" cellspacing="0">
+        <tr>
+            <td>functionExp</td>
+            <td id="functionExp"></td>
+        </tr>
+        <tr>
+            <td>fac</td>
+            <td id="fac"></td>
+        </tr>
+        <tr>
+            <td>findMax</td>
+            <td id="findMax"></td>
+        </tr>
+        <tr>
+            <td>sumAll</td>
+            <td id="sumAll"></td>
+        </tr>
+        <tr>
+            <td>call</td>
+            <td id="call"></td>
+        </tr>
+        <tr>
+            <td>apply</td>
+            <td id="apply"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <script>
+        // 函数定义（声明）
+        function funName(para1, para2) {
+            return "function define";
+        }
+
+        // 函数也可以由函数表达式创建。这样的函数可以是匿名的
+        const fun1 = function (val) { return val * 2; }
+        // 调用匿名函数
+        document.getElementById("functionExp").innerHTML = fun1(2);
+
+        // 函数表达式也可以提供函数名，并且可以用于在函数内部代指其本身，或者在调试器堆栈跟踪中识别该函数
+        const factorial = function fac(n) { return n < 2 ? 1 : n * fac(n - 1) };
+        document.getElementById("fac").innerHTML = factorial(3);
+
+        // 当一个函数是一个对象的属性时，称之为方法
+
+        // 函数调用
+        // 函数一定要处于调用它们的域中，但是函数的声明可以被提升(出现在调用语句之后)
+        // 函数域是指函数声明时的所在的地方，或者函数在顶层被声明时指整个程序
+        // 函数提升仅适用于函数声明，而不适用于函数表达式
+
+        // 函数的声明被提升
+        console.log(square(5));
+        function square(n) { return n * n; }
+
+        // 函数提升不适用于函数表达式
+        // console.log(sqrt(5)); 此处调用错误
+        const sqrt = function (n) { return n * n; }
+
+        // 函数递归计算阶乘
+        function fun2(n) {
+            if ((n == 0) || (n == 1))
+                return 1;
+            else
+                return (n * fun2(n - 1));
+        }
+        console.log(fun2(5));
+
+
+        // 参数规则
+        // JavaScript 函数定义不会为参数规定数据类型，不会对所传递的参数实行类型检查，不会检查所接收参数的数量
+        // 如果调用参数时省略了参数（少于被声明的数量），则丢失的值被设置为：undefined
+
+        // 如果函数调用的参数太多（超过声明），则可以使用 arguments 对象来达到这些参数
+        // JavaScript 函数有一个名为 arguments 对象的内置对象。arguments 对象包含函数调用时使用的参数数组
+        function findMax() {
+            var max = -Infinity;
+            for (let i = 0; i < arguments.length; i++) {
+                if (arguments[i] > max) {
+                    max = arguments[i];
+                }
+            }
+            return max;
+        }
+        document.getElementById("findMax").innerHTML = findMax(4, 6, 11, 15, 26);
+
+        function sumAll() {
+            var sum = 0;
+            for (let i = 0; i < arguments.length; i++) {
+                sum += arguments[i];
+            }
+            return sum;
+        }
+        document.getElementById("sumAll").innerHTML = sumAll(4, 6, 11, 15, 26);
+
+        // 参数的改变在函数之外是不可见的，对象属性的改变在函数之外是可见的
+
+        // 使用 call() 方法，您可以编写能够在不同对象上使用的方法
+        var person = {
+            fullName: function (city, country) {
+                return this.firstName + " " + this.lastName + " " + city + " " + country;
+            }
+        }
+        var person1 = {
+            firstName: "Bill",
+            lastName: "Gates"
+        }
+        var person2 = {
+            firstName: "Steve",
+            lastName: "Jobs"
+        }
+        // person1，person2 对象调用了属于 person 的方法
+        document.getElementById("call").innerHTML = person.fullName.call(person1, "NewYork", "US") + " " + person.fullName.call(person2, "Landon", "UK");
+
+        // call() 方法分别接受参数。apply() 方法接受数组形式的参数。如果要使用数组而不是参数列表，则 apply() 方法非常方便
+        // person1，person2 对象调用了属于 person 的方法
+        document.getElementById("apply").innerHTML = person.fullName.apply(person1, ["NewYork", "US"]) + " " + person.fullName.apply(person2, ["Landon", "UK"]);
+
+        // 可以使用 Math.max() 方法找到（数字列表中的）最大数字
+        // 由于 JavaScript 数组没有 max() 方法，因此可以应用 Math.max() 方法
+        // 第一个参数（null）无关紧要
+        console.log(Math.max.apply(null, [1, 2, 3, 4, 5]));
+
+        // 如果为尚未声明的变量赋值，此变量会自动成为全局变量
+        a = 1; // 全局变量
+        let b = 2; // 全局变量，但不属于 window 对象
+        {
+            let b = 3; // 局部变量
+            // console.log("b: " + window.b); 错误
+            console.log("b: " + b);
+        }
+        console.log("a: " + window.a);
+        // console.log("b: " + window.b); 错误
+        console.log("b: " + b);
+
+    </script>
+</body>
+
+</html>

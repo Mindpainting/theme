@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 动画和过渡的区别：动画不需要点击，自动完成；过渡需要鼠标经过 */
+
+        /* 定义动画 */
+        @keyframes move {
+
+            /* from to 等价于 0% 100% */
+            /* 开始状态 */
+            0%
+
+            /*from*/
+                {
+                transform: translateX(0px);
+            }
+
+            /* 结束状态 */
+            100%
+
+            /*to*/
+                {
+                transform: translateX(1000px) rotate(360deg);
+            }
+
+        }
+
+        @keyframes circle {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(1200px, 0);
+            }
+
+            50% {
+                transform: translate(1200px, 400px);
+            }
+
+            75% {
+                transform: translate(0, 400px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .animation1 {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(203, 255, 80);
+            animation-name: move;
+            animation-duration: 5s;
+            /* 动画结束后状态，默认回到起始 (backwards) */
+            animation-fill-mode: forwards;
+        }
+
+        .animation1:hover {
+            /* 鼠标经过停止动画，该属性默认是 running*/
+            animation-play-state: paused;
+        }
+
+        .animation2 {
+            width: 100px;
+            height: 100px;
+            background-color: coral;
+            /* 调用动画 */
+
+            /* 动画名称
+            animation-name: circle; */
+
+            /* 持续时间 默认是 0
+            animation-duration: 8s; */
+
+            /* 运动曲线 默认是 ease
+            animation-timing-function: ease; */
+
+            /* 何时开始 默认是 0
+            animation-delay: 2s; */
+
+            /* 重复次数 默认是 1
+            animation-iteration-count: infinite; */
+
+            /* 是否反方向播放 默认是 normal
+            animation-direction: alternate; */
+
+            /* 动画简写 顺序有一定的影响，前两个属性一定要写
+            animation: name duration timing-function delay iteration-count direction fill-mode; */
+            animation: circle 8s linear 0.5s infinite normal;
+        }
+
+        @keyframes speed {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 500px;
+            }
+        }
+
+        /* 速度曲线细节 */
+        .animation3 {
+            width: 0;
+            height: 10px;
+            background-color: red;
+            border-radius: 5px;
+
+            /* 匀速 */
+            /* animation: speed 5s linear infinite forwards; */
+
+            /* 分几步完成动画 */
+            animation: speed 5s steps(10) infinite forwards;
+        }
+
+        @keyframes word {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 240px;
+            }
+        }
+
+        .animation4 {
+            width: 0;
+            height: 30px;
+            font-size: 20px;
+            /* 强制文字一行显示 */
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: skyblue;
+
+            /* 分几步完成动画 */
+            animation: word 5s steps(12) infinite forwards;
+        }
+
+        /* steps() 可以巧妙的实现动画效果，小熊奔跑 */
+        /* 一个元素可以添加很多动画，用逗号分隔 */
+    </style>
+</head>
+
+<body>
+    <div class="animation1"></div>
+    <div class="animation2"></div>
+    <div class="animation3"></div>
+    <div class="animation4">眼睁睁的看着你却无能为力</div>
+</body>
+
+</html>

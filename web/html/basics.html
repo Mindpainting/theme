@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo1</title>
+</head>
+
+<body>
+    <!-- 独占一行，后面不论写什么都不会在本行显示 -->
+    <div>Division</div>
+
+    <!-- 一行可以放多个 span -->
+    <span>Google</span>
+    <span>Microsoft</span>
+    <span>Firefox</span><br />
+
+    <p>
+        <strong>粗体</strong>
+        <em>斜体</em>
+        <del>删除线</del>
+        <ins>下划线</ins>
+    </p>
+    <hr />
+
+    <!-- <img />标签属性 src alt title width height border -->
+    <!-- alt 替换文本，图像不能显示时替换显示的文本  title 提示文本 鼠标放到图片上时显示的文字 -->
+    <!-- 宽度和高度一般只需要修改一个，另一个会自动适配 -->
+    <!--相对路径（相对于 HTML文件的路径） ../ 上一级路径 / 下一级路径 -->
+    <img src="../images/大暴雨.png" alt="这是一张帅图" title="被你发现了" width="200" height="200" border="1" />
+    <img src="../images/冻雨.png" width="200" height="200" border="1" /><br />
+
+    <!-- 绝对路径 -->
+    <img src="https://www.marketbeat.com/logos/bilibili-logo.png" />
+
+    <!-- target用于指定链接页面的打开方式，其中_self为默认值，__blank为在新窗口中打开方式 -->
+    <div>
+        <!-- 外部链接 -->
+        <a href="http://www.bilibili.com" target="_blank">bilibili</a>
+
+        <!-- 内部链接 -->
+        <a href="../images/undraw.png" target="_blank">javanote</a>
+
+        <!-- # 空链接 -->
+        <a href="#">空连接</a>
+
+        <!-- 下载链接 -->
+        <a href="#">下载链接</a>
+
+        <!-- 网页元素链接 -->
+        <a href="https://www.marketbeat.com/logos/bilibili-logo.png">bilibili logo</a>
+        <hr />
+
+        <a href="https://www.bilibili.com" target="_blank">
+            <img border="3" style="color: rgba(255, 1, 137, 0.884)"
+                src="https://www.marketbeat.com/logos/bilibili-logo.png" width="200" height="80" alt="哔哩哔哩" />
+        </a>
+        <hr />
+
+        <!-- 锚点链接 -->
+        <div>
+            <a href="#a">A</a>
+            <a href="#b">B</a>
+            <a href="#c">C</a>
+
+            <h6 id="a">AAA</h6>
+            <h6 id="b">BBB</h6>
+            <h6 id="c">CCC</h6>
+        </div>
+        <hr />
+        <!-- 特殊字符 -->
+        <div>
+            <tr>
+            <tr>&lt;</tr> <!-- 重点 -->
+            <tr>&gt;</tr> <!-- 重点 -->
+            <td>&clubs;</td>
+            <td>&diams;</td>
+            <td>&hearts;</td>
+            <td>&spades;</td>
+            <td>&yen;</td>
+            <td>&laquo;</td>
+            <td>&raquo;</td>
+            <td>&iquest;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;添加空格</td> <!-- 重点 -->
+            <td>未添加空格</td>
+            </tr>
+        </div>
+    </div>
+</body>
+
+</html>

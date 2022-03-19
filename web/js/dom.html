@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom</title>
+</head>
+
+<body>
+    <div class="test1" id="t1"></div>
+    <div class="test1"></div>
+    <div class="test2" id="t2"></div>
+
+    <input id="input1" class="input" type="text" placeholder="请输入..." required="required"
+        style="border: 1px solid rgb(255, 0, 0);"><br />
+
+    <button id="listen1">addEventListener1</button><br />
+    <button id="listen2">addEventListener2</button>
+    <p id="listen2_result"></p>
+
+    <button id="parameter1">parameters</button>
+    <p id="parameter2"></p>
+
+    <p id="nav">nav</p>
+
+    <h4 id="nodeName" class="node">nodeName</h4>
+
+    <div id="add">
+        <p><button onclick="addElement()">addElement</button></p>
+        <p id="child1">眼睁睁的看着你却无能为力</p>
+    </div>
+
+    <div id="remove">
+        <p><button onclick="removeElement()">removeElement</button></p>
+        <p id="child2">眼睁睁的看着你</p>
+        <p id="child3">却无能为力</p>
+    </div>
+
+    <div id="replace">
+        <p><button onclick="replaceElement()">replaceElement</button></p>
+        <p id="child4">眼睁睁的看着你</p>
+        <p id="child5">却无能为力</p>
+    </div>
+    <script>
+        // HTML DOM（文档对象模型），JavaScript 通过 DOM 能够访问和改变 HTML 文档的所有元素，当网页被加载时，浏览器会创建页面的文档对象模型 Document Object Model
+
+        // id 是唯一的，所以该方法返回只返回一个 HTML 元素
+        document.getElementById("t1").innerHTML = "t1";
+
+        // 该方法返回所有类名为 test1 的 HTML 元素，即 HTMLCollection
+        var htmlCollection = document.getElementsByClassName("test1");
+        console.log(htmlCollection);
+        for (const x in htmlCollection) {
+            htmlCollection[x].innerHTML = "htmlCollection";
+        }
+
+        // 该方法返回所有 div 元素，即 HTMLCollection<div>
+        console.log(document.getElementsByTagName("div"));
+
+
+        document.getElementById("input1").placeholder = "改变属性值...";
+        document.getElementById("input1").setAttribute("placeholder", "属性值...");
+
+        // 修改 HYTML 元素样式
+        document.getElementById("input1").style.border = "1px solid rgb(0, 180, 180)";
+        // document.getElementById("input1").style.setProperty("border", "1px solid rgb(255, 255, 0)");
+
+
+        // JavaScript HTML DOM 事件监听程序
+        // addEventListener() 方法允许向相同元素添加多个事件，同时不覆盖已有事件
+        var l1 = document.getElementById("listen1");
+        l1.addEventListener("click", () => { alert("addEventListener--1") });
+        l1.addEventListener("click", () => { alert("addEventListener--2") });
+
+        var l2 = document.getElementById("listen2");
+        var listen2_result = document.getElementById("listen2_result");
+        l2.addEventListener("mouseover", () => { listen2_result.innerHTML += "mouseover<br>" });
+        l2.addEventListener("click", () => { listen2_result.innerHTML += "click<br>" });
+        l2.addEventListener("mouseout", () => { listen2_result.innerHTML += "mouseout<br>" });
+
+        // 传递参数
+        var p1 = 3;
+        var p2 = 5;
+        document.getElementById("parameter1").addEventListener("click", () => { arguments(p1, p2) });
+        arguments = (x, y) => {
+            document.getElementById("parameter2").innerHTML = x + y;
+        }
+
+        // 在 HTML DOM 中有两种事件传播的方法：冒泡和捕获
+        // 事件传播是一种定义当发生事件时元素次序的方法。假如 <div> 元素内有一个 <p>，然后用户点击了这个 <p> 元素，应该首先处理哪个元素 click 事件
+        // 在冒泡中，最内侧元素的事件会首先被处理，然后是更外侧的：首先处理 <p> 元素的点击事件，然后是 <div> 元素的点击事件
+        // 在捕获中，最外侧元素的事件会首先被处理，然后是更内侧的：首先处理 <div> 元素的点击事件，然后是 <p> 元素的点击事件
+        // 在 addEventListener() 方法中，能够通过使用 useCapture 参数来规定传播类型
+        // addEventListener(event, function, useCapture);
+        // 默认值是 false，将使用冒泡传播，如果该值设置为 true，则事件使用捕获传播
+
+        // removeEventListener() 方法，会删除已通过 addEventListener() 方法附加的事件处理程序
+
+
+
+        // DOM 导航
+        // DOM 处理中的一种常见错误是认为元素节点中包含文本
+        // <title id="demo">DOM 教程</title>，这个例子中的元素节点 <title> 不包含文本。它包含了值为 "DOM 教程" 的文本节点。文本节点的值能够通过节点的 innerHTML 属性进行访问
+        // 以下三个等价
+        console.log(document.getElementById("nav").innerHTML);
+        console.log(document.getElementById("nav").firstChild.nodeValue);
+        console.log(document.getElementById("nav").childNodes[0].nodeValue);
+
+
+        // DOM 根节点
+        // 有两个特殊属性允许访问完整文档：document.body - 文档的 body；document.documentElement - 完整文档
+        // alert(document.body.innerHTML);
+        // alert(document.documentElement.innerHTML);
+
+        // nodeName 属性
+        // nodeName 属性规定节点的名称
+        // nodeName 是只读的
+        // nodeName 总是包含 HTML 元素的大写标签名
+        // 元素节点的 nodeName 等同于标签名
+        // 属性节点的 nodeName 是属性名称
+        // 文本节点的 nodeName 总是 #text
+        // 文档节点的 nodeName 总是 #document
+        console.log(document.getElementById("nodeName").nodeName);
+        console.log(document.getElementById("nodeName").firstChild.nodeName);
+        console.log(document.nodeName);
+
+        // nodeValue 属性
+        // nodeValue 属性规定节点的值
+        // 元素节点的 nodeValue 是 undefined
+        // 文本节点的 nodeValue 是文本
+        // 属性节点的 nodeValue 是属性值
+        console.log(document.getElementById("nodeName").nodeValue);
+        console.log(document.getElementById("nodeName").firstChild.nodeValue);
+
+        // 和 console.log(document.getElementById("nodeName").getAttribute("class")); 等价
+        console.log(document.getElementById("nodeName").getAttributeNode("class").nodeValue);
+
+        // nodeType 属性
+        // nodeType 属性返回节点的类型。nodeType 是只读的
+
+
+
+        // 添加节点（HTML 元素）
+        addElement = () => {
+            // 创建一个新的 <p> 元素，返回值新建的元素
+            let paragraph = document.createElement("p");
+
+            // 向 <p> 元素添加文本，则必须首先创建文本节点
+            let content = document.createTextNode("新建节点");
+
+            // 向 <p> 元素追加这个文本节点
+            paragraph.appendChild(content);
+
+            // 向已有元素追加这个新元素
+            let currentElement = document.getElementById("add");
+
+            // 向这个已有的元素追加新元素（两种方法）
+            // currentElement.appendChild(paragraph);
+            currentElement.insertBefore(paragraph, document.getElementById("child1"))
+        }
+
+        // 删除已有 HTML 元素，如需删除某个 HTML 元素，您需要知晓该元素的父亲
+        removeElement = () => {
+            let parent = document.getElementById("remove");
+            let child2 = document.getElementById("child2");
+            parent.removeChild(child2);
+        }
+
+        // 替换 HTML 元素
+        replaceElement = () => {
+            let parent = document.getElementById("replace");
+            let child5 = document.getElementById("child5");
+            var para = document.createElement("p");
+            var node = document.createTextNode("新的文本");
+            para.appendChild(node);
+            parent.replaceChild(para, child5);
+        }
+
+        // HTMLCollection 并非数组！能够遍历列表并通过数字引用元素（就像数组那样）。不过，无法对 HTMLCollection 使用数组方法，比如 valueOf()、pop()、push() 或 join()
+        var htmlCollection = document.getElementsByTagName("p");
+        console.log(htmlCollection.length);
+    </script>
+</body>
+
+</html>

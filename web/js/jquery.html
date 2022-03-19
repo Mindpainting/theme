@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 本地引入 jquery -->
+    <script src="./jquery-3.6.0.js"></script>
+
+    <!-- 使用 Google 的 CDN -->
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js">
+    </script> -->
+
+    <!-- 使用 Microsoft 的 CDN -->
+    <!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> -->
+    <title>Jquery</title>
+</head>
+
+<body>
+    <p>HTML</p>
+    <p>CSS</p>
+    <p>JAVASCRIPT</p>
+    <button class="btn1">Click</button>
+    <p id="hide">Hide</p>
+    <button id="btn2">Hide</button>
+
+    <p id="ja">jQuery AJAX</p>
+    <button class="ja">获得外部内容</button>
+
+    <div>
+        <button id="get">get</button>
+        <button id="post">post</button>
+    </div>
+
+    <script>
+        // jQuery 是一个 JavaScript 函数库
+
+        // jQuery 语法，基础语法是：$(selector).action() 
+        // 美元符号定义 jQuery
+        // 选择符（selector）查询和查找 HTML 元素
+        // jQuery 的 action() 执行对元素的操作
+
+        // 文档就绪函数
+        // 所有 jQuery 函数位于一个 document ready 函数中，是为了防止文档在完全加载（就绪）之前运行 jQuery 代码
+
+        // jQuery 元素选择器，jQuery 使用 CSS 选择器来选取 HTML 元素
+        // $(this) 当前 HTML 元素
+        // $("p") 选取 <p> 元素
+        // $("p.intro") 选取所有 class="intro" 的 <p> 元素
+        // $("p#demo") 选取所有 id="demo" 的 <p> 元素
+
+        // jQuery 属性选择器
+        // jQuery 使用 XPath 表达式来选择带有给定属性的元素
+        // $("[href]") 选取所有带有 href 属性的元素
+        // $("[href='#']") 选取所有带有 href 值等于 "#" 的元素
+        // $("[href!='#']") 选取所有带有 href 值不等于 "#" 的元素
+        // $("[href$='.jpg']") 选取所有 href 值以 ".jpg" 结尾的元素
+
+        // jQuery CSS 选择器，jQuery CSS 选择器可用于改变 HTML 元素的 CSS 属性
+        $(document).ready(() => {
+            $(".btn1").click(() => {
+                $("p").css("background-color", "coral");
+            });
+        });
+
+        $(document).ready(() => {
+            $("#btn2").click(() => {
+                $("#hide").hide();
+            });
+        });
+
+        // jQuery 事件
+        // $(document).ready(function)	将函数绑定到文档的就绪事件（当文档完成加载时）
+        // $(selector).click(function)	触发或将函数绑定到被选元素的点击事件
+
+
+        // jQuery - AJAX
+        // responseTxt - 包含调用成功时的结果内容；statusTXT - 包含调用的状态；xhr - 包含 XMLHttpRequest 对象
+        $(document).ready(() => {
+            $(".ja").click(() => {
+                $("#ja").load("./xhttp.txt", function (responseTxt, statusTxt, xhr) {
+                    if (statusTxt == "success")
+                        alert("外部内容加载成功！");
+                    if (statusTxt == "error")
+                        alert("Error: " + xhr.status + ": " + xhr.statusText);
+                });
+            });
+        });
+
+
+        // GET - 从指定的资源请求数据    POST - 向指定的资源提交要处理的数据
+        // GET 基本上用于从服务器获取数据。GET 方法可能返回缓存数据
+        // POST 也可用于从服务器获取数据。不过，POST 方法不会缓存数据，并且常用于连同请求一起发送数据
+        $(document).ready(() => {
+            $("#get").click(() => {
+                $.get("./get.txt", (data, status) => {
+                    alert("数据：" + data + "\n状态：" + status);
+                });
+            });
+        });
+
+        // $(document).ready(() => {
+        //     $("#post").click(() => {
+        //         $.post("./post.html",
+        //             {
+        //                 name: "Donald Duck",
+        //                 city: "Duckburg"
+        //             },
+        //             (data, status) => {
+        //                 alert("数据：" + data + "\n状态：" + status);
+        //             });
+        //     });
+        // });
+    </script>
+
+</body>
+
+</html>

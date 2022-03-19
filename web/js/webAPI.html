@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAPI</title>
+</head>
+
+<body>
+    <div id="location"></div>
+    <script>
+        // Web API 可以扩展浏览器的功能，可以极大简化复杂的功能，可以为复杂的代码提供简单的语法
+        // API 指的是应用程序编程接口（Application Programming Interface）
+        // Web API 是 Web 的应用程序编程接口
+        // 浏览器 API 可以扩展 Web 浏览器的功能
+        // 服务器 API 可以扩展 Web 服务器的功能
+
+        // Web Storage API 是一种用于在浏览器中存储和检索数据的简单语法
+        // localStorage 对象 localStorage 对象提供对特定网站的本地存储的访问。它允许  存储、读取、添加、修改和删除该域的数据项。存储的数据没有到期日期，并且在浏览器关闭时不会被删除。这些数据将在几天、几周和几年内均可用
+        localStorage.setItem("name", "Jerry");
+        console.log(localStorage.getItem("name"));
+
+        // sessionStorage 对象 sessionStorage 对象与 localStorage 对象相同。不同之处在于 sessionStorage 对象存储会话的数据。当浏览器关闭时，数据会被删除
+        sessionStorage.setItem("name", "Jerry");
+        console.log(sessionStorage.getItem("name"));
+
+        // Storage 对象属性和方法
+        // key(n)	返回存储中第 n 个键的名称
+        // length	返回存储在 Storage 对象中的数据项数
+        // getItem(keyname)	返回指定的键名的值
+        // setItem(keyname, value)	将键添加到存储中，或者如果键已经存在，则更新该键的值
+        // removeItem(keyname)	从存储中删除该键
+        // clear()	清空所有键
+
+
+        // Geolocation.getCurrentPosition()
+        // 确定设备的位置并返回一个携带位置信息的 Position 对象
+        // Geolocation.watchPosition()
+        // 注册一个位置改变监听器，每当设备位置改变时，返回一个 long 类型的该监听器的ID值
+        // Geolocation.clearWatch()
+        // 取消由 watchPosition()注册的位置监听器
+
+        // coords.latitude	以十进制数表示的纬度（始终返回）
+        // coords.longitude	以十进制数表示的经度（始终返回）
+        // coords.accuracy	位置精度（始终返回）
+        // coords.altitude	平均海平面以上的高度（以米计）（如果可用则返回）
+        // coords.altitudeAccuracy	位置的高度精度（如果可用则返回）
+        // coords.heading	从北顺时针方向的航向（如果可用则返回）
+        // coords.speed	以米/秒计的速度（如果可用则返回）
+        // timestamp	响应的日期/时间（如果可用则返回）
+
+        // options参数中，可选属性如下：
+        // enableHighAccuracy：是否要求高精度的地理位置信息。
+        // timeout：设置超时时间（单位为毫秒）。
+        // maximumAge：对地理位置信息进行缓存的有效时间（单位为毫秒）
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        function success(position) {
+            var coords = position.coords;
+            console.log('Latitude : ' + coords.latitude);
+            console.log('Longitude: ' + coords.longitude);
+            console.log('More or less ' + coords.accuracy + ' meters.');
+        };
+
+        // code：错误代码，有如下值，code = 1 用户拒绝了位置服务；code = 2 获取不到位置信息；code = 3 获取信息超时错误
+        // message：字符串，包含了具体的错误信息
+        function error(err) {
+            //处理错误
+            switch (err.code) {
+                case 1:
+                    alert("位置服务被拒绝 " + err.message);
+                    break;
+                case 2:
+                    alert("暂时获取不到位置信息 " + err.message);
+                    break;
+                case 3:
+                    alert("获取信息超时 " + err.message);
+                    break;
+                default:
+                    alert("未知错误 " + err.message);
+                    break;
+            }
+        }
+
+        // 谷歌浏览器不支持，需要在其他浏览器打开
+        // getCurrentPosition() 第二和第三个参数为可选属性
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    </script>
+</body>
+
+</html>

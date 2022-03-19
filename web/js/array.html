@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="demo"></div>
+        <script>
+            // 创建数组
+            // 出于简洁、可读性和执行速度的考虑，请使用第一种方法
+            var cars = ["Saab", "Volvo", "BMW"];
+            // js数组可以允许数组元素类型不同
+            var cars = ["Saab", "Volvo", 225];
+            document.write(cars);
+            document.write(typeof cars[2]);
+            var cars = new Array("Saab", "Volvo", "BMW");
+
+            // JavaScript 变量可以是对象。数组是特殊类型的对象
+            // 正因如此，您可以在相同数组中存放不同类型的变量
+            // 您可以在数组保存对象。您可以在数组中保存函数。你甚至可以在数组中保存数组
+            // 遍历数组
+            var fruits, text, fLen, i;
+            fruits = ["Banana", "Orange", "Apple", "Mango"];
+            fLen = fruits.length;
+
+            text = "<ul>";
+            for (i = 0; i < fLen; i++) {
+                text += "<li>" + fruits[i] + "</li>";
+            }
+            text += "</ul>";
+
+            document.getElementById("demo").innerHTML = text;
+
+            // 在 JavaScript 中，数组使用数字索引
+            // 在 JavaScript 中，对象使用命名索引
+            // 数组是特殊类型的对象，具有数字索引
+
+            // 如何识别数组
+            // 一，为了解决这个问题，ECMAScript 5 定义了新方法 Array.isArray()
+            Array.isArray(fruits); // 返回 true
+
+            // 二，创建您自己的 isArray() 函数以解决此问题：
+            function isArray(x) {
+                return x.constructor.toString().indexOf("Array") > -1;
+            }
+
+            // 三，假如对象由给定的构造器创建，则 instanceof 运算符返回 true
+            fruits instanceof Array; // 返回 true
+        </script>
+    </body>
+</html>

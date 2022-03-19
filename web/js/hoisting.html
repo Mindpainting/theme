@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 提升（Hoisting）是 JavaScript 将声明移至顶部的默认行为
+            // 用 let 或 const 声明的变量和常量不会被提升
+            // JavaScript 只提升声明，而非初始化
+            // 为了避免 bug，请始终在每个作用域的开头声明所有变量。由于这就是 JavaScript 解释代码的方式，请保持这个好习惯
+
+            var x1 = 5; // 初始化 x1
+            var y1 = 7; // 初始化 y1
+            document.write(x1 + " " + y1 + "<br>");
+
+            var x2 = 5; // 初始化 x2
+            document.write(x2 + " " + y2 + "<br>");
+            var y2 = 7; // 初始化 y2，不会被提升
+
+            var x3 = 5; // 初始化 x3
+            y3 = 7;
+            document.write(x3 + " " + y3 + "<br>");
+            var y3; // 声明 y3，声明提升
+
+            var x4 = 5; // 初始化 x4
+            var y4; // 声明 y4
+            document.write(x4 + " " + y4);
+            y4 = 7;
+        </script>
+    </body>
+</html>

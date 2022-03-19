@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+         /* 标签选择器 */
+         p {
+                color: blueviolet;
+            }
+            div {
+                color: chartreuse;
+            }
+
+            /* 类选择器 */
+            .blue {
+                color: blue;
+                font-size: 100px;
+            }
+            .red {
+                color: red;
+                font-size: 100px;
+            }
+            .orange {
+                color: orange;
+                font-size: 100px;
+            }
+            .green {
+                color: green;
+                font-size: 100px;
+            }
+
+            /* 类选择器特殊用法- 多类名 */
+            .chartreuse {
+                color: chartreuse;
+            }
+            .font-size {
+                font-size: 50px;
+            }
+
+            /* id选择器 */
+            #black {
+                color: black;
+                font-size: 30px;
+            }
+
+            /* 通配符选择器 ，* 就是选择所有的标签，它是所有选择器中作用范围最广的，能匹配页面中所有的元素 */
+            * {
+                color: black;
+                font-size: 30px;
+            }   
+
+    </style>
+           
+</head>
+<body>
+    <!-- 标签选择器 -->
+    <p>Terminal</p>
+    <div>Curriculum</div>
+
+    <!-- 类选择器 -->
+    <span class="blue">G</span>
+    <span class="red">o</span>
+    <span class="orange">o</span>
+    <span class="blue">g</span>
+    <span class="green">l</span>
+    <span class="red">e</span>
+
+    <!-- 类选择器特殊用法- 多类名 -->
+    <div class="chartreuse font-size">Enterprise</div>
+
+    <!-- id选择器 id选择器是唯一的，不得重复。只能使用一次。一般用于页面唯一性的元素身上 -->
+    <div id="black">Implement</div>
+
+    <!-- 通配符选择器 ，* 就是选择所有的标签，它是所有选择器中作用范围最广的，能匹配页面中所有的元素 -->
+    <div>
+        <span>Association</span>
+        <span>Parse</span>
+        <span>Navigation</span>
+        <span>Variable</span>
+    </div>
+
+</body>
+</html>

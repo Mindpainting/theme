@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+</head>
+
+<body>
+    <button type="button" onclick="load(mycallback)">访问test.txt</button>
+    <script>
+        // AJAX（Asynchronous JavaScript And XML）可以不刷新页面更新网页，在页面加载后从服务器请求数据，在页面加载后从服务器接收数据，在后台向服务器发送数据
+        // Ajax 的核心是 XMLHttpRequest 对象，用于同服务器交换数据
+
+        // GET 比 POST 更简单更快，可用于大多数情况下。
+        // 不过，请在以下情况始终使用 POST：缓存文件不是选项（更新服务器上的文件或数据库）；向服务器发送大量数据（POST 无大小限制）；发送用户输入（可包含未知字符），POST 比 GET 更强大更安全
+
+        // open() 方法的 url 参数，是服务器上文件的地址
+
+        // 这些值的完整列表记录在 XMLHTTPRequest.readyState 中，如下所示：readyState
+        // 0（未初始化）或（请求未初始化）)
+        // 1（正在加载）或（已建立服务器连接）)
+        // 2（已加载）或（已收到请求）)
+        // 3（交互式）或（处理请求）)
+        // 4（完成）或（请求已完成且响应准备就绪）)
+
+        // status 返回请求的状态号 
+        // 200: "OK"
+        // 403: "Forbidden"
+        // 404: "Not Found"
+
+        // 检查请求的状态和响应的 HTTP 状态代码后，可以对服务器发送的数据执行任何操作。有两种选择来访问该数据：
+        // httpRequest.responseXML– 将响应作为可以使用 JavaScript DOM 函数遍历的对象返回XMLDocument
+        // httpRequest.responseText– 以文本字符串形式返回服务器响应
+
+        function load(fun) {
+            var xhttp = new XMLHttpRequest();
+            // 每当 readyState 发生变化时就会调用 onreadystatechange 函数
+            xhttp.onreadystatechange = () => {
+                // 处理服务器响应
+                // 不能用插件 debugger for chrome 调试，因为状态一直是 0（表示本地相应成功）
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    fun(xhttp);
+                }
+            };
+            // 发出 HTTP 请求
+            xhttp.open("GET", 'xhttp.txt', true);
+            xhttp.send();
+        }
+
+        // 请求响应后执行回调函数
+        function mycallback(xhttp) {
+            alert(xhttp.responseText);
+        }
+    </script>
+</body>
+
+</html>

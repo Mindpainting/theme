@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class</title>
+</head>
+
+<body>
+    <script>
+        // JavaScript 类不是对象。它只是 JavaScript 对象的模板
+        class Car {
+            constructor(name, year) {
+                this.name = name;
+                this.year = year;
+            }
+            age(x) {
+                return x - this.year;
+            }
+
+            get getName() {
+                return this.name;
+            }
+            set setName(name) {
+                this.name = name;
+            }
+        }
+        var year = new Date().getFullYear();
+        document.write(year + "<br>");
+
+        const myCar = new Car("Ford", 2014);
+
+        document.write(myCar.name + " " + myCar.year + "<br>");
+        document.write("My car is " + myCar.age(year) + " years old.");
+
+        // 与函数和其他 JavaScript 声明不同，类声明不会被提升。这意味着您必须先声明类，然后才能使用它
+        // 即使 getter 是一个方法，当你想要获取属性值时也不要使用括号。getter/setter 方法的名称不能与属性名称相同
+        console.log(myCar.getName);
+        myCar.setName = "Joy";
+        console.log(myCar.getName);
+    </script>
+</body>
+
+</html>

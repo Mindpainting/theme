@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<!-- 在 ES2015 之前，JavaScript 只有两种类型的作用域：全局作用域和函数作用域。 -->
+
+<body>
+    <p id="bs1"></p>
+    <p id="bs2"></p>
+    <p id="bs3"></p>
+
+    <!-- <script>
+            var x = 6;
+            // 此处 x = 6
+            // {}之中的是块
+            document.getElementById("bs1").innerHTML = x;
+            {
+                var x = 3;
+                document.getElementById("bs2").innerHTML = x;
+                // 此处 x = 3
+            }
+            // 使用 var 关键字重新声明变量会带来问题。在块中重新声明变量也将重新声明块外的变量
+            // 使用 let 关键字重新声明变量可以解决这个问题。在块中重新声明变量不会重新声明块外的变量
+            // 此处 x = 3
+            document.getElementById("bs3").innerHTML = x;
+        </script> -->
+
+    <script>
+        // 全局（在函数之外）声明的变量拥有全局作用域
+        // 在块外声明变量，var 和 let 很相似。它们都拥有全局作用域，但是，通过 let 关键词定义的全局变量不属于 window 对象
+        // 通过 var 关键词定义的全局变量属于 window 对象
+        // 如果为尚未声明的变量赋值，此变量会自动成为全局变量
+        // 通过 var 声明的变量会提升到顶端
+
+        var x = 6;
+
+        // 此处 x = 6
+        // {}之中的是块 可以使用 let 关键词声明拥有块作用域的变量。在块 {} 内声明的变量无法从块外访问：
+
+        document.getElementById("bs1").innerHTML = x;
+        {
+            let x = 3;
+            document.getElementById("bs2").innerHTML = x;
+            // 此处 x = 3
+        }
+        // 此处 x = 6
+        document.getElementById("bs3").innerHTML = x;
+
+        // 如果您为尚未声明的变量赋值，此变量会自动成为全局变量
+        a = 1; // 全局变量
+        let b = 2; // 全局变量，但不属于 window 对象
+        {
+            let b = 3; // 局部变量
+            // console.log("b: " + window.b); 错误
+            console.log("b: " + b);
+        }
+        console.log("a: " + window.a);
+        // console.log("b: " + window.b); 错误
+        console.log("b: " + b);
+    </script>
+</body>
+
+</html>

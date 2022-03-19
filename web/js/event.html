@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p id="date"></p>
+        <p id="displaydate"></p>
+        <!-- <button onclick="document.getElementById("date").innerHTML = Date()">当前时间</button> 这种写法错误，不能两处都用双引号-->
+
+        <!-- 改变id为date 的元素的内容 -->
+        <button onclick="document.getElementById('date').innerHTML = Date()">
+            当前时间
+        </button>
+
+        <!-- 使用 this.innerHTML 改变了其自身元素的内容 -->
+        <button onclick="this.innerHTML = Date()">当前时间</button>
+
+        <!-- 调用函数 -->
+        <button onclick="displayDate()">当前时间</button>
+
+        <script>
+            function displayDate() {
+                document.getElementById("displaydate").innerHTML = Date();
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 类选择器，属性选择器和伪类选择器权重都是 10 */
+
+        /* 属性选择器 */
+        input[value] {
+            color: skyblue;
+        }
+
+        input[type=password] {
+            color: greenyellow;
+        }
+
+        /* 以 icon 开头的类名选中 */
+        div[class^=icon] {
+            color: red;
+        }
+
+
+
+        /* 结构伪类选择器 */
+        /* ul li:first-child {
+            background-color: red;
+        }
+
+        ul li:last-child {
+            background-color: green;
+        }
+
+        ul li:nth-child(5) {
+            background-color: blue;
+        } */
+
+        /* nth-child(n) n可以是数字，关键字和公式，从零开始计算。隔行变色应用 */
+        /* 选择所有奇数行
+        ul li:nth-child(even) {
+            background-color: #ccc;
+        }
+
+        选择所有偶数行 
+        ul li:nth-child(odd) {
+            background-color: rgb(236, 128, 227);
+        } */
+
+        /* 选择所有偶数行 */
+        ul li:nth-child(2n) {
+            background-color: rgb(128, 236, 142);
+        }
+
+        /* 选择所有奇数行 */
+        ul li:nth-child(2n + 1) {
+            background-color: rgb(240, 231, 108);
+        }
+
+        /* nth-child 会把所有的盒子都排列序号 */
+        /* 执行的时候首先看 :nth-child(1) 之后回去看前面的 div */
+        section div:nth-child(1) {
+            background-color: rgb(167, 230, 238);
+        }
+
+        /* nth-of-type 会把指定元素的盒子排列序号 */
+        /* 执行的时候首先看 div 指定的元素，之后回去看 :nth-of-type(1) 第几个孩子 */
+        section div:nth-of-type(1) {
+            background-color: rgb(219, 173, 103);
+        }
+
+        /* 伪元素选择器 */
+    </style>
+</head>
+
+<body>
+    <input type="text" value="请输入" name="" id="">
+    <input type="text" name="" id="">
+
+    <input type="text">
+    <input type="password" name="" id="">
+
+    <div class="icon1">icon1</div>
+    <div class="icon2">icon2</div>
+    <div class="icon3">icon3</div>
+    <div class="icon4">icon4</div>
+    <div class="icon5">icon5</div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+
+    <section>
+        <p>啊啊</p>
+        <div>嘟嘟</div>
+        <div>哈哈</div>
+    </section>
+</body>
+
+</html>

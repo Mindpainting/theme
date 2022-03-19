@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // getDate()	以数值返回天（1-31）
+            // getDay()	以数值获取周名（0-6）
+            // getFullYear()	获取四位的年（yyyy）
+            // getHours()	获取小时（0-23）
+            // getMilliseconds()	获取毫秒（0-999）
+            // getMinutes()	获取分（0-59）
+            // getMonth()	获取月（0-11）
+            // getSeconds()	获取秒（0-59）
+            // getTime()	获取时间从 1970 年 1 月 1 日至今以来的毫秒数
+
+            var date = new Date("2021-11-25T12:25:37");
+            document.write("年 " + date.getFullYear() + "<br>"); // 注意 js 中月份的规则
+            document.write("月 " + date.getMonth() + 1 + "<br>");
+            document.write("日 " + date.getDate() + "<br>");
+            document.write("时 " + date.getHours() + "<br>");
+            document.write("分 " + date.getMinutes() + "<br>");
+            document.write("秒 " + date.getSeconds() + "<br>");
+            document.write("毫秒 " + date.getMilliseconds() + "<br>");
+
+            // 在 JavaScript 中，一周的第一天（0）表示“星期日”，即使世界上的一些国家认为周的第一天是“星期一”
+            document.write("周 " + date.getDay() + "<br>");
+            document.write("GMT毫秒 " + date.getTime() + "<br>");
+
+            // setDate()	以数值（1-31）设置日
+            // setFullYear()	设置年（可选月和日）
+            // setHours()	设置小时（0-23）
+            // setMilliseconds()	设置毫秒（0-999）
+            // setMinutes()	设置分（0-59）
+            // setMonth()	设置月（0-11）
+            // setSeconds()	设置秒（0-59）
+            // setTime()	设置时间（从 1970 年 1 月 1 日至今的毫秒数）
+            var date1 = new Date("2021-11-30T23:59:56");
+            // date1.setFullYear(2021, 12, 24); 可以选择设置月日
+            date1.setFullYear(2025);
+            // 设置一月
+            date1.setMonth(0);
+            // date1.setDate();
+            date1.setHours(24);
+            // date1.setMinutes();
+            // date1.setDate();
+            // date1.setMilliseconds();
+
+            // date1.setDay();
+            // date1.setTime();
+
+            document.write(date1 + "<br>");
+
+            // 日期比较
+            var text = "";
+            if (date < date1) text = "date 在 date1 之前";
+            else text = "date 在 date1 之后";
+            document.write(text);
+        </script>
+    </body>
+</html>

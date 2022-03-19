@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="login.html" method="POST" name="form">
+            用户名：<input
+                type="text"
+                name="username"
+                value="请输入用户名"
+            /><br />
+
+            <!-- password 密码框 输入用户看不见的密码 -->
+            密码：<input type="password" name="password" maxlength="6" /><br />
+
+            <!-- radio 单选按钮 可以实现多选一 -->
+            <!-- name 是表单元素名字，这里性别单选按钮必须有相同的名字name，才可以实现多选一 -->
+            <!-- <label>标签用于绑定一个表单元素，当点击<label>标签内的文本时，浏览器会自动将焦点（光标）转到或者选择对应的表单元素上用来增加用户体验 -->
+            性别：<input type="radio" name="sex" id="man" />
+            <label for="man">男</label>
+            <input type="radio" name="sex" id="woman" />
+            <label for="woman">女</label><br />
+
+            <!-- checkbox 复选框 可以实现多选 -->
+            <!-- checked属性主要针对于单选按钮和复选框，主要作用，打开页面，就可以默认选中某个表单元素 -->
+            爱好：<input type="checkbox" name="hobby" />听音乐
+            <input type="checkbox" name="hobby" />打游戏
+            <input type="checkbox" name="hobby" checked="checked" />敲代码
+            <br />
+
+            <input type="date" name="date" /><br />
+            <input type="datetime" name="datetime" /><br />
+            <input type="datetime-local" name="date" /><br />
+
+            籍贯：
+            <!-- 省份选择的  selected="selected" 表示默认选中 北京 -->
+            <select>
+                <option>--请选择省份--</option>
+                <option selected="selected">北京</option>
+                <option>天津</option>
+                <option>上海</option>
+                <option>深圳</option>
+            </select>
+            <!-- 城市选择 -->
+            <select>
+                <option>--请选择城市--</option>
+                <option>海淀区</option>
+                <option>昌平区</option>
+                <option>通州区</option>
+                <option>雄安区</option></select
+            ><br />
+
+            <!-- textarea 文本域 -->
+            自我认识：
+            <textarea cols="50" rows="5">
+            hello,hello
+        </textarea
+            ><br />
+
+            <input type="submit" value="提交" />
+
+            <!-- 重置按钮可以还原表单元素初始的默认状态 -->
+            <input type="reset" value="重置" />
+        </form>
+    </body>
+</html>

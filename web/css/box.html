@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Box</title>
+    <style>
+        /* 清除所有网页元素的内外边距 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+
+            /*  border-width  定义边框粗细，单位是 px
+                border-style  边框的样式
+                border-color  边框颜色 */
+
+            /* 简写 */
+            /* border : border-width border-style border-color  没有顺序*/
+
+            /* 边框的样式：
+                    none：没有边框即忽略所有边框的宽度（默认值）
+                    solid：边框为单实线(最为常用的)
+                    dashed：边框为虚线  
+                    dotted：边框为点线 */
+
+            /* border: 2px solid gainsboro; */
+
+            /* 边框可以分别修改 */
+            border-top: 2px solid greenyellow;
+            border-bottom: 2px solid skyblue;
+            border-left: 2px solid gold;
+            border-right: 2px solid rgb(228, 75, 177);
+
+            /* border-collapse: collapse; 合并相邻的边框（解决表格相邻的单元格边框会叠加问题） */
+
+            /* 盒子的边框会影响盒子的大小，盒子大小 200px 200px 加上 10px 的边框，则盒子大小变为 220px 220px */
+
+            /* 内边距：是指边框与内容之间的距离 */
+            /*
+                padding-left   左内边距
+                padding-right  右内边距
+                padding-top    上内边距
+                padding-bottom 下内边距 */
+
+            /* 简写 */
+            /*  padding：5px 上下左右内边距 5px;
+                padding: 5px 10px上下内边距 5px  左右内边距 10px；
+                padding：5px 10px 20px 上内边距 5px  左右内边距 10px 下内边距 20px；
+                padding: 5px 10px 20px 30px 上内边距 5px 右内边距 10px 下内边距 20px 左内边距 30px；*/
+
+
+            /* 盒子的内边距也会影响盒子的大小，盒子大小 200px 200px 加上下左右 10px 的内边距，则盒子大小变为 220px 220px */
+            padding: 20px;
+
+            /* 如果盒子本身没有指定 width/height属性，此时 padding不会撑开盒子 */
+
+
+            /* margin 外边距，语法和 padding类似 */
+            margin-bottom: 20px;
+        }
+
+        .margin {
+            background-color: rgb(63, 212, 58);
+        }
+
+        .angleRound {
+            border: 1px solid black;
+            background-color: rgb(145, 186, 247);
+
+            /* 该属性是一个 简写属性，是为了将这四个属性 
+            左上角 border-top-left-radius、
+            右上角 border-top-right-radius、
+            右下角 border-bottom-right-radius，
+            左下角 border-bottom-left-radius 简写为一个属性 */
+
+            /* 圆角边框 */
+
+            /* border-radius: 30px; */
+
+            /* border-radius: 30px 60px; */
+
+            /* border-radius: 10px 10px 80px; */
+            border-radius: 10px 80px 10px;
+        }
+
+        .circle {
+            border: 1px solid black;
+            background-color: rgb(145, 186, 247);
+
+            /* 半径设为盒子高度和宽度的一半 */
+            border-radius: 50%;
+        }
+
+        .angleRoundRectangle {
+            width: 300px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: rgb(145, 186, 247);
+
+            /* 半径设为盒子高度的一半 */
+            border-radius: 150px;
+        }
+
+        .shadow {
+            background-color: rgb(255, 241, 52);
+
+            /* 盒子阴影 */
+            /* box-shadow: 水平阴影（数值越大阴影越向右移，负值向左移） 垂直阴影（数值越大阴影越向下移，负值向上移） 模糊距离（虚实） 阴影尺寸（影子大小） 阴影颜色 内/外阴影； */
+            /* 前两个属性是必须写的。其余的可以省略。外阴影 (outset) 是默认的但是不能写，想要内阴影可以写  inset */
+            box-shadow: 5px 5px 3px 4px rgba(0, 0, 0, .4);
+
+            /* 文字阴影 */
+            /* text-shadow: 水平阴影 垂直阴影 模糊距离（虚实） 阴影颜色 */
+            font-size: 25px;
+            text-shadow: 5px 5px 3px rgba(0, 0, 0, .3);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        border-width
+        border-style
+        border-color
+        border-width
+        border-style
+        border-color
+    </div>
+    <div class="margin"></div>
+    <div class="angleRound"></div>
+    <div class="circle"></div>
+    <div class="angleRoundRectangle"></div>
+    <div class="shadow">文字阴影</div>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <!-- 方法共性都是在数组每个元素上运行函数 -->
+    <body>
+        <div id="forEach"></div>
+        <div id="map"></div>
+        <div id="filter"></div>
+        <div id="reduce"></div>
+        <div></div>
+        <script>
+            var numbers = [45, 4, 9, 16, 25];
+            var txt = "";
+            // forEach() 方法为每个数组元素调用一次函数（回调函数）
+            numbers.forEach(myFunction1);
+            // 参数(项目值 项目索引 数组本身)
+            function myFunction1(value, index, array) {
+                txt = txt + value + " ";
+            }
+            document.getElementById("forEach").innerHTML = txt;
+
+            // map() 方法通过对每个数组元素执行函数来创建新数组。不会对没有值的数组元素执行函数。不会更改原始数组
+            var numbers1 = numbers.map(myFunction2);
+            function myFunction2(value, index, array) {
+                return value * 2;
+            }
+            document.getElementById("map").innerHTML = numbers1;
+
+            // filter() 方法创建一个包含通过测试的数组元素的新数组
+            var over18 = numbers.filter(myFunction3);
+            function myFunction3(value, index, array) {
+                return value > 18;
+            }
+            document.getElementById("filter").innerHTML = over18;
+
+            // reduce() 方法在每个数组元素上运行函数，以生成（减少它）单个值。在数组中从左到右工作。另请参阅 reduceRight()。不会减少原始数组
+            var sum = numbers.reduce(myFunction4);
+            function myFunction4(total, value, index, array) {
+                return total + value;
+            }
+            document.getElementById("reduce").innerHTML = sum;
+
+            // reduceRight() 从右向左
+
+            // every() 方法检查所有数组值是否通过测试
+
+            // some() 方法检查某些数组值是否通过了测试
+
+            // indexOf(item, start) 方法在数组中搜索元素值并返回其位置
+            // 如果未找到项目，Array.indexOf() 返回 -1。如果项目多次出现，则返回第一次出现的位置
+
+            // Array.indexOf(item, start) 是从数组结尾开始搜索
+
+            // find() 方法返回通过测试函数的第一个数组元素的值
+
+            // findIndex() 方法返回通过测试函数的第一个数组元素的索引
+        </script>
+    </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="indexOf"></div>
+    <div id="lastIndexOf"></div>
+    <div id="search"></div>
+    <div id="slice"></div>
+    <div id="substring"></div>
+    <div id="substr"></div>
+    <div id="replace"></div>
+    <div id="toUpperCase"></div>
+    <div id="toLowerCase"></div>
+    <div id="charAt"></div>
+    <div id="charCodeAt"></div>
+    <div id="split1"></div>
+    <div id="split2"></div>
+    <div id="match"></div>
+    <script>
+        var str =
+            "The full name of China is the People's Republic of China.";
+
+        // indexOf() 方法返回字符串中指定文本首次出现的索引（位置）, 10 检索起始位置
+        document.getElementById("indexOf", 10).innerHTML =
+            str.indexOf("China");
+
+        // lastIndexOf() 方法返回指定文本在字符串中最后一次出现的索引，50 检索起始位置
+        document.getElementById("lastIndexOf", 50).innerHTML =
+            str.indexOf("China");
+        // 如果未找到文本， indexOf() 和 lastIndexOf() 均返回 -1
+
+        // search() 方法搜索特定值的字符串，并返回匹配的位置
+        document.getElementById("search").innerHTML = str.indexOf("China");
+
+        /* search() 方法无法设置第二个开始位置参数
+        indexOf() 方法无法设置更强大的搜索值（正则表达式） */
+
+        var str = "Apple, Banana, Mango";
+
+        // slice()，substring()，substr() 如果省略第二个参数，那么返回的子串会一直到字符串的结尾
+        // slice() 提取字符串的某个部分并在新字符串中返回被提取的部分。该方法设置两个参数：起始索引（开始位置，含），终止索引（结束位置，不含）
+        document.getElementById("slice").innerHTML = str.slice(7, 13);
+
+        // substring() 类似于 slice()。不同之处在于 substring() 无法接受负的索引
+        document.getElementById("substring").innerHTML = str.substring(7);
+
+        // substr() 类似于 slice()。不同之处在于第二个参数规定被提取部分的长度
+        document.getElementById("substr").innerHTML = str.substr(7, 6);
+
+        // replace() 方法不会改变调用它的字符串。它返回的是新字符串。默认地，replace() 只替换首个匹配.默认地，replace() 对大小写敏感。因此不对匹配 MICROSOFT
+        var str = "Please visit Microsoft!";
+        document.getElementById("replace").innerHTML = str.replace(
+            "Microsoft",
+            "W3School"
+        );
+
+        var str = "Hello World!";
+        document.getElementById("toUpperCase").innerHTML =
+            str.toUpperCase();
+
+        document.getElementById("toLowerCase").innerHTML =
+            str.toLowerCase();
+
+        var text1 = "Hello";
+        var text2 = "World";
+        text3 = text1.concat(" ", text2);
+
+        // charAt() 方法返回字符串中指定下标（位置）的字符串
+        document.getElementById("charAt").innerHTML = str.charAt(0);
+
+        // charCodeAt() 方法返回字符串中指定索引的字符 unicode 编码
+        document.getElementById("charCodeAt").innerHTML = str.charCodeAt(0);
+
+        var text = "";
+        function mySplit(str) {
+            for (i = 0; i < str.length; i++) {
+                text += str[i];
+            }
+        }
+
+        // split() 将字符串转换为数组。 如果省略分隔符，被返回的数组将包含 index [0] 中的整个字符串。如果分隔符是 ""，被返回的数组将是间隔单个字符的数组
+        var str1 = "h,e,l,l,o";
+        mySplit(str1.split(","));
+        document.getElementById("split1").innerHTML = text;
+
+        var str2 = "hello";
+        document.getElementById("split2").innerHTML =
+            str2.split("") + " " + str2[0] + " " + str2[1] + " " + str2[2];
+
+        // match() 方法可在字符串内检索指定的值，返回指定的值，而不是字符串的位置
+        // 不用正则表达式，只执行一次匹配，即只匹配第一个weather，不会匹配第二个。返回的是一个数组，第一个元素存放的是匹配的值。有两个属性，index 属性声明的是匹配文本的起始字符在 stringObject 中的位置，input 属性声明的是对 stringObject 的引用
+        var reg =
+            "Whether the weather be fine or whether the weather be not";
+        var arr = reg.match("weather");
+        document.getElementById("match").innerHTML =
+            arr +
+            " " +
+            arr.index +
+            " " +
+            arr[0] +
+            " " +
+            arr[1] +
+            " " +
+            arr.input;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <table border="1">
+            <tr>
+                <td>PI</td>
+                <td id="pi"></td>
+            </tr>
+            <tr>
+                <td>round</td>
+                <td id="round"></td>
+            </tr>
+            <tr>
+                <td>pow</td>
+                <td id="pow"></td>
+            </tr>
+            <tr>
+                <td>sqrt</td>
+                <td id="sqrt"></td>
+            </tr>
+            <tr>
+                <td>abs</td>
+                <td id="abs"></td>
+            </tr>
+            <tr>
+                <td>ceil</td>
+                <td id="ceil"></td>
+            </tr>
+            <tr>
+                <td>floor</td>
+                <td id="floor"></td>
+            </tr>
+            <tr>
+                <td>sin</td>
+                <td id="sin"></td>
+            </tr>
+            <tr>
+                <td>cos</td>
+                <td id="cos"></td>
+            </tr>
+            <tr>
+                <td>max</td>
+                <td id="max"></td>
+            </tr>
+            <tr>
+                <td>min</td>
+                <td id="min"></td>
+            </tr>
+            <tr>
+                <td>random</td>
+                <td id="random"></td>
+            </tr>
+        </table>
+
+        <script>
+            document.getElementById("pi").innerHTML = Math.PI;
+
+            // Math.round(x) 的返回值是 x 四舍五入为最接近的整数
+            document.getElementById("round").innerHTML = Math.round(3.5);
+
+            // Math.pow(x, y) 的返回值是 x 的 y 次幂
+            document.getElementById("pow").innerHTML = Math.pow(2, 3);
+
+            document.getElementById("sqrt").innerHTML = Math.sqrt(16);
+
+            document.getElementById("abs").innerHTML = Math.abs(-12);
+
+            // Math.ceil(x) 的返回值是 x 上舍入最接近的整数
+            document.getElementById("ceil").innerHTML = Math.ceil(6.1);
+
+            // Math.floor(x) 的返回值是 x 下舍入最接近的整数
+            document.getElementById("floor").innerHTML = Math.floor(7.9);
+
+            document.getElementById("sin").innerHTML = Math.sin(Math.PI / 2);
+            document.getElementById("cos").innerHTML = Math.cos(0);
+
+            // Math.min() 和 Math.max() 可用于查找参数列表中的最低或最高值
+            document.getElementById("max").innerHTML = Math.max(
+                0,
+                450,
+                35,
+                10,
+                -8,
+                -300,
+                -78
+            );
+            document.getElementById("min").innerHTML = Math.min(
+                0,
+                450,
+                35,
+                10,
+                -8,
+                -300,
+                -78
+            ); // 返回 450
+
+            // Math.random() 返回介于 0（包括） 与 1（不包括） 之间的随机数
+            document.getElementById("random").innerHTML = Math.random();
+
+            // Math.E          // 返回欧拉指数（Euler's number）
+            // Math.PI         // 返回圆周率（PI）
+            // Math.SQRT2      // 返回 2 的平方根
+            // Math.SQRT1_2    // 返回 1/2 的平方根
+            // Math.LN2        // 返回 2 的自然对数
+            // Math.LN10       // 返回 10 的自然对数
+            // Math.LOG2E      // 返回以 2 为底的 e 的对数（约等于 1.414）
+            // Math.LOG10E     // 返回以 10 为底的 e 的对数（约等于 0.434）
+
+            // ****与其他全局对象不同，Math对象没有构造函数。方法和属性是静态的****
+        </script>
+    </body>
+</html>

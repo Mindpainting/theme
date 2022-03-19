@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button id="rs" onclick="randomSort()">randomSort</button><br />
+        <button onclick="objectSort()">objectSort</button>
+        <button onclick="myFunction()">myFunction</button>
+        <div id="os"></div>
+        <div id="os1"></div>
+        <script>
+            var fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+            // sort() 方法以字母顺序对数组进行排序
+            document.write(fruits.sort() + "<br>");
+
+            // reverse() 方法反转数组中的元素
+            document.write(fruits.reverse() + "<br>");
+
+            // sort() 函数按照字符串顺序对值进行排序。该函数很适合字符串（"Apple" 会排在 "Banana" 之前）。不过，如果数字按照字符串来排序，则 "25" 大于 "100"，因为 "2" 大于 "1"。正因如此，sort() 方法在对数值排序时会产生不正确的结果。我们通过一个比值函数来修正此问题
+
+            // 当 sort() 函数比较两个值时，会将值发送到比较函数，并根据所返回的值（负、零或正值）对这些值进行排序。
+            // a-b 是升序  b-a是降序
+            var points = [40, 100, 1, 5, 25, 10];
+
+            document.write(
+                points.sort(function (a, b) {
+                    return a - b;
+                }) + "<br>"
+            );
+            document.write(
+                points.sort(function (a, b) {
+                    return b - a;
+                })
+            );
+
+            // 以随机顺序排序
+            function randomSort() {
+                document.getElementById("rs").innerHTML = points.sort(function (
+                    a,
+                    b
+                ) {
+                    return 0.5 - Math.random();
+                });
+            }
+
+            // JavaScript 不提供查找数组中最大或最小数组值的内建函数
+            // 可以使用 Math.max(min).apply 来查找数组中的最大(小)值
+            document.write("<br>" + "Max is " + Math.max.apply(null, points));
+            document.write("<br>" + "Min is " + Math.min.apply(null, points));
+
+            // 对象数组排序
+            var cars = [
+                { type: "Volvo", year: 2016 },
+                { type: "Saab", year: 2001 },
+                { type: "porsche", year: 2010 },
+            ];
+
+            function objectSort() {
+                cars.sort(function (a, b) {
+                    return a.year - b.year;
+                });
+                displayCars("os");
+            }
+
+            function myFunction() {
+                cars.sort(function (a, b) {
+                    var x = a.type.toLowerCase();
+                    var y = b.type.toLowerCase();
+                    if (x < y) {
+                        return -1;
+                    }
+                    if (x > y) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                displayCars("os1");
+            }
+
+            function displayCars(id) {
+                document.getElementById(id).innerHTML =
+                    cars[0].type +
+                    " " +
+                    cars[0].year +
+                    "<br>" +
+                    cars[1].type +
+                    " " +
+                    cars[1].year +
+                    "<br>" +
+                    cars[2].type +
+                    " " +
+                    cars[2].year +
+                    "<br>";
+            }
+        </script>
+    </body>
+</html>

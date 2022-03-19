@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object</title>
+    <style>
+        table,
+        td {
+            border: 1px solid skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="1" cellspacing="0">
+        <tr>
+            <td>property</td>
+            <td id="property"></td>
+        </tr>
+        <tr>
+            <td>traversal</td>
+            <td id="traversal"></td>
+        </tr>
+        <tr>
+            <td>add</td>
+            <td id="add"></td>
+        </tr>
+        <tr>
+            <td>delete</td>
+            <td id="delete"></td>
+        </tr>
+        <tr>
+            <td>method</td>
+            <td id="method"></td>
+        </tr>
+        <tr>
+            <td>addMethod</td>
+            <td id="addMethod"></td>
+        </tr>
+        <tr>
+            <td>objectValues</td>
+            <td id="objectValues"></td>
+        </tr>
+        <tr>
+            <td>jsonStringify</td>
+            <td id="jsonStringify"></td>
+        </tr>
+        <tr>
+            <td>array</td>
+            <td id="array"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="getterSetter"></td>
+        </tr>
+        <tr>
+            <td>Person</td>
+            <td id="person"></td>
+        </tr>
+        <tr>
+            <td>prototype</td>
+            <td id="prototype"></td>
+        </tr>
+        <tr>
+            <td>getOwnPropertyNames</td>
+            <td id="getOwnPropertyNames"></td>
+        </tr>
+        <tr>
+            <td>getOwnPropertyDescriptor</td>
+            <td id="getOwnPropertyDescriptor"></td>
+        </tr>
+        <tr>
+            <td>Map</td>
+            <td id="map"></td>
+        </tr>
+        <tr>
+            <td>MapIt1</td>
+            <td id="mapit1"></td>
+        </tr>
+        <tr>
+            <td>MapIt2</td>
+            <td id="mapit2"></td>
+        </tr>
+        <tr>
+            <td>MapIt3</td>
+            <td id="mapit3"></td>
+        </tr>
+        <tr>
+            <td>MapIt4</td>
+            <td id="mapit4"></td>
+        </tr>
+        <tr>
+            <td>Set</td>
+            <td id="set"></td>
+        </tr>
+    </table>
+    <script>
+        // 一、使用字面量创建对象，这是最好的办法
+        // 二、使用 new 创建对象
+        // 三、使用类创建对象
+        const user = {
+            username: "Jky",
+            password: "123456",
+            phone: "13712346589",
+            email: "249633958@qq.com",
+            hobby: ["music", "sport", "game"],
+
+            get userName() {
+                return this.username;
+            },
+            set userName(username) {
+                this.username = username;
+            },
+            get getEmail() {
+                return this.email;
+            },
+            set setEmail(email) {
+                this.email = email;
+            },
+            getUsername: function () {
+                return this.username;
+            }
+        };
+
+        // 访问对象属性的语法
+        var htmlElement = document.getElementById("property");
+        htmlElement.innerHTML = user.username + " " + user["username"];
+
+        // for in 遍历对象的属性
+        var text = "";
+        for (x in user) {
+            text += user[x] + "<br>";
+        }
+        document.getElementById("traversal").innerHTML = text;
+
+        // 添加新属性
+        user.address = "UK";
+        document.getElementById("add").innerHTML = user.address;
+
+        // 删除属性
+        // delete 关键词会同时删除属性的值和属性本身
+        // 删除完成后，属性在被添加回来之前是无法使用的
+        // delete 操作符被设计用于对象属性。它对变量或函数没有影响
+        // delete 操作符不应被用于预定义的 JavaScript 对象属性。这样做会使应用程序崩溃
+        // JavaScript 对象继承了它们的原型的属性。delete 关键词不会删除被继承的属性，但是如果您删除了某个原型属性，则将影响到所有从原型继承的对象
+        delete user.phone;
+        document.getElementById("delete").innerHTML = user.phone;
+
+        // 访问对象方法
+        // 加括号返回函数值，不加返回函数定义
+        document.getElementById("method").innerHTML = user.getUsername();
+
+        // 给对象添加函数
+        user.getAddress = function () {
+            return this.address;
+        }
+        document.getElementById("addMethod").innerHTML = user.getAddress();
+
+        // 显示 JavaScript 对象
+        // 按名称显示对象属性
+        // 循环显示对象属性 for in
+        // 使用 Object.values() 显示对象
+        // 使用 JSON.stringify() 显示对象
+
+        // 通过使用 Object.values()，任何 JavaScript 对象都可以被转换为数组
+        document.getElementById("objectValues").innerHTML = Object.values(user);
+
+        // 任何 JavaScript 对象都可以使用 JavaScript 函数 JSON.stringify() 进行字符串化（转换为字符串）
+        // JSON.stringify 不会对函数进行字符串化
+        // 如果在字符串化之前将函数转换为字符串，这可以是“固定的”
+        user.getUsername = user.getUsername.toString();
+        document.getElementById("jsonStringify").innerHTML = JSON.stringify(user);
+
+        // 数组字符串化
+        const array = ["AA", "BB", "CC"];
+        document.getElementById("array").innerHTML = JSON.stringify(array);
+
+        // JavaScript 访问器（Getter 和 Setter）
+        // 相较于普通函数，使用 getter 和 setter 时，JavaScript 可以确保更好的数据质量
+        // 为什么使用 Getter 和 Setter？
+        // 它提供了更简洁的语法
+        // 它允许属性和方法的语法相同
+        // 它可以确保更好的数据质量
+        // 有利于后台工作
+        user.setEmail = "123456789@qq.com";
+        document.getElementById("getterSetter").innerHTML = user.getEmail;
+
+        // 对象构造器
+        function Person(first, last, age, eyecolor) {
+            this.firstName = first;
+            this.lastName = last;
+            this.age = age;
+            this.eyeColor = eyecolor;
+        }
+        var myFriend = new Person("Bill", "Gates", 62, "blue");
+        document.getElementById("person").innerHTML = myFriend.firstName + " " + myFriend.lastName;
+
+        // 所有 JavaScript 对象都从原型继承属性和方法。
+        // 日期对象继承自 Date.prototype。数组对象继承自 Array.prototype。Person 对象继承自 Person.prototype，Object.prototype 位于原型继承链的顶端
+        // 日期对象、数组对象和 Person 对象都继承自 Object.prototype
+
+        // 向对象添加属性和方法，使用 prototype 属性
+        Person.prototype.nationality = "English";
+        Person.prototype.name = function () {
+            return this.firstName + " " + this.lastName;
+        };
+        document.getElementById("prototype").innerHTML = myFriend.nationality + " " + myFriend.name();
+
+        // ECMAScript 5 (2009) 向 JavaScript 添加了许多新的对象方法
+        // 管理对象
+        // Object.create() 以现有对象为原型创建对象 
+        // Object.defineProperty(object, property, descriptor)添加或更改对象属性
+        // Object.defineProperties(object, descriptors) 添加或更改对象属性
+
+        // Object.getOwnPropertyDescriptor(object, property) 访问属性
+
+        // 一个属性描述符是一个记录，由下面属性当中的某些组成的：
+        // value
+        // 该属性的值(仅针对数据属性描述符有效)
+        // writable
+        // 当且仅当属性的值可以被改变时为true。(仅针对数据属性描述有效)
+        // get
+        // 获取该属性的访问器函数（getter）。该值默认为 undefined。(仅针对包含访问器或设置器的属性描述有效)
+        // set
+        // 获取该属性的设置器函数（setter）。该值默认为 undefined。(仅针对包含访问器或设置器的属性描述有效)
+        // configurable
+        // 当且仅当指定对象的属性描述可以被改变或者属性可被删除时，为true。
+        // enumerable
+        // 当且仅当指定对象的属性可以被枚举出时，为 true。
+
+        // Object.getOwnPropertyNames(object) 以数组返回所有属性
+        // Object.getPrototypeOf(object) 访问原型
+        // Object.keys(object) 以数组返回可枚举属性
+
+        // 保护对象
+        // Object.preventExtensions(object) 防止向对象添加属性
+        // Object.isExtensible(object) 如果属性可以添加到对象，则返回 true
+        // Object.seal(object) 防止更改对象属性（不是值）
+        // Object.isSealed(object) 如果对象被密封，则返回 true
+        // Object.freeze(object)防止对对象进行任何更改
+        // Object.isFrozen(object) 如果对象被冻结，则返回 true
+        const person = {
+            firstName: "Bill",
+            lastName: "Gates",
+            language: "EN"
+        };
+
+        // 修改属性值，设置 language 为只读，使 language 不可枚举
+        Object.defineProperty(person, "language", {
+            value: "NO",
+            configurable: true,
+            enumerable: false,
+            writable: true
+        });
+
+        // 添加属性
+        Object.defineProperty(person, "year", {
+            value: "2008",
+            configurable: true,
+            enumerable: true,
+            writable: true
+        });
+        document.getElementById("getOwnPropertyNames").innerHTML = Object.getOwnPropertyNames(person);
+
+
+        // writable : true      属性值可更改
+        // enumerable : true    属性可枚举
+        // configurable : true  属性可重新配置
+        // writable : false     属性值不可更改
+        // enumerable : false   属性不可枚举
+        // configurable : false 属性不可重新配置
+
+
+        // 添加 Getter 和 Setter
+        Object.defineProperty(person, "fullName", {
+            get: function () {
+                return this.firstName + " " + this.lastName;
+            }
+        });
+
+        // 访问属性，get，set有无 getter，setter函数均为 undefined
+        var pro = Object.getOwnPropertyDescriptor(person, "language");
+        document.getElementById("getOwnPropertyDescriptor").innerHTML = pro.value + " " + pro.configurable + " " + pro.enumerable + " " + pro.writable + " " + pro.get + " " + pro.set + " " + person.fullName;
+
+
+        // Map
+        // Map 对象保存键值对，并且能够记住键的原始插入顺序。任何值(对象或者原始值) 都可以作为一个键或一个值
+        // 一个Map对象在迭代时会根据对象中元素的插入顺序来进行 — 一个  for...of 循环在每次迭代后会返回一个形式为[key，value]的数组
+
+        // new Map([iterable])	创建新的 Map 对象
+        // Iterable 可以是一个数组或者其他 iterable 对象，其元素为键值对(两个元素的数组，例如: [[ 1, 'one' ],[ 2, 'two' ]])。 每个键值对都会添加到新的 Map。null 会被当做 undefined
+
+        // set()	为 Map 对象中的键设置值
+        // get()	获取 Map 对象中键的值
+        // entries()	返回 Map 对象中键/值对的数组，Map 迭代器
+        // keys()	返回 Map 对象中键的数组，Map 迭代器
+        // values()	返回 Map 对象中值的数组，Map 迭代器
+        // clear()	删除 Map 中的所有元素
+        // delete()	删除由键指定的元素
+        // has()	如果键存在，则返回 true
+        // forEach()	为每个键/值对调用回调
+        // Map.size 返回 Map 中元素的数量
+
+        // 创建对象
+        const apples = { name: 'Apples' };
+        const bananas = { name: 'Bananas' };
+        const oranges = { name: 'Oranges' };
+
+        // 创建 Map
+        const fruits1 = new Map();
+        fruits1.set(apples, 500);
+        fruits1.set(bananas, 300);
+        fruits1.set(oranges, 200);
+
+        // 创建 Map
+        const fruits2 = new Map([
+            [apples, 500],
+            [bananas, 300],
+            [oranges, 200]
+        ]);
+
+        const instructment = new Map([
+            ["vilion", 10],
+            ["piano", 2],
+            ["drum", 15]
+        ]);
+
+        // 使用 for..of 方法迭代 Map
+        // 此处的 key 指 fruits1 的数组，即 [apples, 500],[bananas, 300],[oranges, 200]，所以 key[0]是指 apples，bananas，oranges，key[1] 是指 500, 300, 200
+        display1 = (val) => {
+            let txt = "";
+            for (let key of val) {
+                txt += key[0].name + " " + key[1] + " ";
+            }
+            document.getElementById("mapit1").innerHTML = txt;
+        }
+
+        // 此处的 key即为 apples，bananas，oranges，可以通过 get() 获取 value 值
+        display2 = (val) => {
+            let txt = "";
+            for (let key of val.keys()) {
+                txt += key.name + " " + val.get(key) + " ";
+            }
+            document.getElementById("mapit2").innerHTML = txt;
+        }
+
+        // 此处的 key 是指 500, 300, 200
+        display3 = (val) => {
+            let txt = "";
+            for (let key of val.values()) {
+                txt += key + " ";
+            }
+            document.getElementById("mapit3").innerHTML = txt;
+        }
+
+        // 此处的 key即为 apples，bananas，oranges，value 是指 500, 300, 200
+        // 重点使用
+        display4 = (val) => {
+            let txt = "";
+            for (let [key, value] of val.entries()) {
+                txt += key.name + " " + value + " ";
+            }
+            document.getElementById("mapit4").innerHTML = txt;
+        }
+
+        document.getElementById("map").innerHTML =
+            "<ul>" +
+            "<li>" + "get() " + fruits1.get(apples) + "</li>" +
+            "<li>" + "size " + fruits1.size + "</li>" +
+            "<li>" + "keys " + display2(fruits1) + "</li>" +
+            "<li>" + "values " + display3(fruits1) + "</li>" +
+            "<li>" + "entries " + display4(fruits1) + "</li>" +
+            "</ul >";
+
+
+        // Set
+        // Set对象是值的集合，你可以按照插入的顺序迭代它的元素。 Set中的元素只会出现一次，即 Set 中的元素是唯一的
+        const set = new Set();
+        const arr = [3, 5, 4, 2];
+        const obj = { color: "white", size: 15, width: 35, height: 26 };
+        const objarr = [{ name: "Joy", age: 25 }, { name: "Kol", age: 23 }];
+
+        set.add(1);
+        set.add("set");
+        set.add(true);
+        set.add(arr);
+        set.add(obj);
+        set.add(objarr);
+
+        display = (set) => {
+            let t = "";
+            for (let s of set) {
+                t += s + " ";
+            }
+            document.getElementById("set").innerHTML = t;
+        }
+
+        display(set);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="demo"></p>
+    <p><button onclick="parseServerData()">parse server data</button></p>
+    <p id="itobj"></p>
+    <script>
+        // JSON: JavaScript Object Notation（JavaScript 对象标记法）。JSON 是一种存储和交换数据的语法。JSON 是通过 JavaScript 对象标记法书写的文本
+        // JSON 名称需要双引号，JavaScript 名称不需要
+
+        // JSON 比 XML 更小、更快，更易解析
+
+        // json 语法
+        var str = { "name": "John" };
+        var num = { "age": 30 };
+        var arr = { "employees": ["Bill", "Steve", "David"] };
+        var object = { "employee": { "name": "Bill Gates", "age": 62, "city": "Seattle" } };
+        var bool = { "sale": true };
+        var _null = { "middlename": null };
+
+
+        var text1 =
+            '{"employees":[' +
+            '{"firstName":"Bill","lastName":"Gates" },' +
+            '{"firstName":"Steve","lastName":"Jobs" },' +
+            '{"firstName":"Elon","lastName":"Musk" }]}';
+
+        // 使用 JavaScript 的内建函数 JSON.parse() 来把这个字符串转换为 JavaScript 对象
+        // JSON.parse(text[, reviver])
+        // text 要被解析成 JavaScript 值的字符串，关于 JSON 的语法格式
+        // reviver（可选），转换器, 如果传入该参数(函数)，可以用来修改解析生成的原始值，调用时机在 parse 函数返回之前，返回值 Object 类型，对应给定 JSON 文本的对象/值
+
+        obj1 = JSON.parse(text1);
+        document.getElementById("demo").innerHTML =
+            obj1.employees[1].firstName + " " + obj1.employees[1].lastName;
+
+        // JSON 中不允许日期对象。如果需要包含日期，写为字符串。之后将其转换回日期对象
+        var text2 = '{ "name":"Bill Gates", "birth":"2022-03-01", "city":"Seattle"}';
+        var obj2 = JSON.parse(text2, function (key, value) {
+            if (key == "birth") {
+                return new Date(value);
+            } else {
+                return value;
+            }
+        });
+        alert(obj2.birth);
+
+        function parseServerData() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = () => {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var jso = JSON.parse(xhttp.responseText);
+                    alert(jso.name + " " + jso.age + " " + jso.hobby[0] + " " + jso.hobby[1] + " " + jso.hobby[2]);
+                }
+            }
+            xhttp.open("GET", 'demo.json', true);
+            xhttp.send();
+        }
+
+        // JSON 中不允许函数。如果需要包含函数，把它写作字符串。之后把它转换回函数。应该避免在 JSON 中使用函数，函数会丢失它们的作用域，而且您还需要使用 eval() 把它们转换回函数
+
+
+        // JSON.stringify() 方法将一个 JavaScript 对象或值转换为 JSON 字符串
+        // JSON.stringify(value[, replacer [, space]])
+        // value 将要序列化成 一个 JSON 字符串的值。
+        // replacer（可选）  如果该参数是一个函数，则在序列化过程中，被序列化的值的每个属性都会经过该函数的转换和处理；如果该参数是一个数组，则只有包含在这个数组中的属性名才会被序列化到最终的 JSON 字符串中；如果该参数为 null 或者未提供，则对象所有的属性都会被序列化。
+        // space（可选） 指定缩进用的空白字符串，用于美化输出（pretty-print）；如果参数是个数字，它代表有多少的空格；上限为10。该值若小于 1，则意味着没有空格；如果该参数为字符串（当字符串长度超过 10 个字母，取其前 10 个字母），该字符串将被作为空格；如果该参数没有提供（或者为 null），将没有空格。
+        // 返回值 一个表示给定值的 JSON 字符串
+
+        // json 数组字符串化
+        alert(JSON.stringify(["Jerry", "Tom", "Kitty"]));
+        // json 对象字符串化
+        alert(JSON.stringify({ name: "Jerry", age: "25", hobby: "games" }));
+        // json 日期字符串化
+        alert(JSON.stringify({ date: new Date() }));
+
+
+        // 遍历对象
+        for (const x in object.employee) {
+            document.getElementById("itobj").innerHTML += object.employee[x] + " ";
+        }
+    </script>
+</body>
+
+</html>

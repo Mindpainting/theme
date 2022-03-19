@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            "use strict";
+            // 通过在脚本或函数的开头添加 "use strict"; 来声明严格模式。在脚本开头进行声明，拥有全局作用域（脚本中的所有代码均以严格模式来执行）
+            // 在严格模式中，无法使用未声明的变量
+            // "use strict" 指令只能在脚本或函数的开头被识别
+
+            try {
+                x = 3.14;
+            } catch (error) {
+                document.write(error.name + "<br>" + error.message);
+            }
+
+            // 在函数中声明严格模式，拥有局部作用域（只有函数中的代码以严格模式执行）
+
+            // 严格模式中不允许的事项
+            // 在不声明变量的情况下使用变量，是不允许的
+            // 在不声明对象的情况下使用对象也是不允许的
+            // 删除变量（或对象）是不允许的
+            ("use strict");
+            var x = 3.14;
+            delete x; // 这将引发错误
+
+            // 删除函数是不允许的
+            ("use strict");
+            function x(p1, p2) {}
+            delete x; // 这将引发错误
+
+            // 重复参数名是不允许的
+            ("use strict");
+            function x(p1, p1) {} // 这将引发错误
+
+            // 八进制数值文本是不允许的
+            ("use strict");
+            var x = 010; // 这将引发错误
+
+            // 转义字符是不允许的
+            "use strict";
+            var x = \010; // 这将引发错误
+
+            // 写入只读属性是不允许的
+            "use strict";
+            var obj = {};
+            Object.defineProperty(obj, "x", {value:0, writable:false});
+            obj.x = 3.14;            // 这将引发错误
+
+            // 写入只能获取的属性是不允许的
+            // 删除不可删除的属性是不允许的
+
+            // 字符串 "eval" 不可用作变量
+            "use strict";
+            var eval = 3.14;  // 这将引发错误
+
+            // 字符串 "arguments" 不可用作变量
+
+            // with 语句是不允许的：
+            "use strict";
+            with (Math){x = cos(2)}; // 这将引发错误
+
+            // 处于安全考虑，不允许 eval() 在其被调用的作用域中创建变量
+            "use strict";
+            eval ("var x = 2");
+            alert (x); // 这将引发错误
+
+            // 在类似 f() 的函数调用中，this 的值是全局对象。在严格模式中，现在它成为了 undefined
+
+            // 严格模式中不允许使用为未来预留的关键词。它们是：
+            // implements
+            // interface
+            // let
+            // package
+            // private
+            // protected
+            // public
+            // static
+            // yield
+        </script>
+    </body>
+</html>

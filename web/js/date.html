@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h4 id="utc"></h4>
+        <h4 id="toDateString"></h4>
+        <script>
+            /*      有 4 种方法创建新的日期对象：
+            new Date()
+            new Date(year, month, day, hours, minutes, seconds, milliseconds)
+            new Date(milliseconds)
+            new Date(date string) */
+
+            // new Date() 用当前日期和时间创建新的日期对象
+            var date1 = new Date();
+            document.write(date1 + "<br>");
+
+            // new Date(year, month, ...) 用指定日期和时间创建新的日期对象。7个数字分别指定年、月、日、小时、分钟、秒和毫秒（按此顺序）
+
+            // **** JavaScript 从 0 到 11 计算月份。一月是 0。十二月是11 ****
+
+            // 6个数字指定年、月、日、小时、分钟、秒
+            // 5个数字指定年、月、日、小时和分钟
+            // 4个数字指定年、月、日和小时
+            // ...
+            // **** 不能省略月份。如果只提供一个参数，则将其视为毫秒 ****
+            var date2 = new Date(2021, 0, 5, 15, 20, 56, 32);
+            document.write(date2 + "<br>");
+
+            // new Date(dateString) 从日期字符串创建一个新的日期对象
+            var date3 = new Date("December 25, 2019 12:46:00");
+            document.write(date3 + "<br>");
+
+            // JavaScript 将日期存储为自 1970 年 1 月 1 日 00:00:00 UTC（协调世界时）以来的毫秒数。
+            // 零时间是 1970 年 1 月 1 日 00:00:00 UTC。现在的时间是：1970 年 1 月 1 日之后的 1554166879383 毫秒
+
+            // new Date(milliseconds) 创建一个零时加毫秒的新日期对象
+            var date4 = new Date(10000000000);
+            var date4 = new Date(-2000000);
+            var date4 = new Date(0);
+            document.write(date4);
+
+            // 在 HTML 中显示日期对象时，会使用 toString() 方法自动转换为字符串
+
+            // toUTCString() 方法将日期转换为 UTC 字符串（一种日期显示标准）
+            var date5 = new Date();
+            date5.toUTCString();
+            document.getElementById("utc").innerHTML = date5;
+
+            // toDateString() 方法将日期转换为更易读的格式
+            document.getElementById("toDateString").innerHTML =
+                date5.toDateString();
+        </script>
+    </body>
+</html>

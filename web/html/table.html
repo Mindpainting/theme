@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0" />
+    <title>Table</title>
+
+    <style>
+        table,
+        td,
+        th {
+            width: 500px;
+            height: 40px;
+            border: 1px solid blue;
+            text-align: center;
+
+            /* 合并相邻的边框 */
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+    <thead></thead>：用于定义表格的头部。用来放标题之类的东西。<thead> 内部必须拥有 <tr> 标签
+    <tbody></tbody>：用于定义表格的主体。放数据本体
+    <tfoot></tfoot>: 放表格的脚注之类
+    -->
+
+    <!-- align 设置表格在网页中的水平对齐方式 left, center, right-->
+    <!-- cellpadding 设置单元格内容与单元格边框之间的空白间距，默认1px-->
+    <!-- cellspacing 设置单元格与单元格边框之间的空白间距，默认2px-->
+    <table>
+        <!-- caption 表格标题标签表格的标题，跟着表格一起走，和表格居中对齐 -->
+        <caption>
+            我的表格
+        </caption>
+
+        <thead>
+            <tr>
+                <th>AAA</th>
+                <!-- 居中加粗显示 -->
+                <th>BBB</th>
+                <th>CCC</th>
+                <th>SSS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>微信</td>
+                <td>支付宝</td>
+                <td>QQ钱包</td>
+                <td>华为钱包</td>
+            </tr>
+            <tr>
+                <td>高德地图</td>
+                <td>百度地图</td>
+                <td>GPS定位</td>
+                <td>北斗导航</td>
+            </tr>
+            <tr>
+                <td>淘宝</td>
+                <td>京东</td>
+                <td>当当</td>
+                <td>亚马逊</td>
+            </tr>
+            <tr>
+                <td>王者荣耀</td>
+                <td>和平精英</td>
+                <td>英雄联盟</td>
+                <td>我的世界</td>
+            </tr>
+
+            <!-- 
+                1. 先确定是跨行还是跨列合并
+                2. 根据 先上 后下   先左  后右的原则找到目标单元格    然后写上 合并方式 还有 要合并的单元格数量  比如 ： <td colspan="3">   </td>
+                3. 删除多余的单元格 单元格     
+            -->
+            <!-- 
+                合并单元格2种方式
+                跨行合并：rowspan="合并单元格的个数"      
+                跨列合并：colspan="合并单元格的个数" 
+            -->
+            <tr>
+                <td rowspan="2">跨行合并单元格</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">跨列合并单元格</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>S</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+
+</html>

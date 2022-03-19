@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CallBack</title>
+</head>
+
+<body>
+    <p id="getFile"></p>
+    <p id="loadFile"></p>
+    <script>
+        // 回调 (callback) 是作为参数传递给另一个函数的函数
+        // 这种技术允许函数调用另一个函数回调函数可以在另一个函数完成后运行
+
+        // 回调函数
+        function display(s) {
+            console.log("s: " + s);
+        }
+
+        function calculate(x, y, callback) {
+            let sum = x + y;
+            callback(sum);
+        }
+
+        // display 是函数的名称，它作为参数传递给 calculate()
+        // 将函数作为参数传递时，不要使用括号
+        calculate(3, 5, display);
+
+
+        // 与其他函数并行运行的函数称为异步，回调最常与异步函数一起使用。一个典型的例子是 JavaScript setTimeout()
+
+        // 两秒后会调用回调函数 asyncDisplay()
+        function asyncDisplay() {
+            console.log("asyncDisplay");
+        }
+        setTimeout(asyncDisplay, 2000);
+
+
+        interval = () => {
+            let date = new Date();
+            console.log(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+        }
+
+        // 函数 setInterval()，可以指定每个间隔执行的回调函数
+        // setInterval(interval, 2000);
+
+
+        // 如果创建函数来加载外部资源（如脚本或文件），则在内容完全加载之前无法使用这些内容。这是使用回调的最佳时机
+        // 此例加载一个 HTML 文件 (table.html)，并在文件完全加载后在网页中显示该 HTML 文件
+        function myDisplayer(htmlfile) {
+            document.getElementById("getFile").innerHTML = htmlfile;
+        }
+
+        function getFile(myCallback) {
+            let req = new XMLHttpRequest();
+            req.open('GET', "../html/table.html");
+            req.onload = function () {
+                if (req.status == 200) {
+                    myCallback(this.responseText);
+                } else {
+                    myCallback("Error: " + req.status);
+                }
+            }
+            req.send();
+        }
+
+        getFile(myDisplayer);
+
+
+        // Promise 对象用于表示一个异步操作的最终完成 (或失败)及其结果值。Promise 对象支持两个属性：state 和 result
+
+        // myPromise.state  myPromise.result
+        // "pending"	    undefined
+        // "fulfilled"	    结果值
+        // "rejected"	    error 对象
+
+        // 无法访问 Promise 属性 state 和 result，必须使用 Promise 方法来处理 Promise
+
+        /* myPromise.then( function(value) { code if successful }, function(error) { code if some error }); */
+        // Promise.then() 有两个参数，一个是成功时的回调函数，另一个是失败时的回调函数，两个参数可选
+
+        // Promise 对象是由关键字 new 及其构造函数来创建的。该构造函数会把一个叫做处理器函数 executor function 的函数作为它的参数。这个处理器函数接受两个函数 resolve 和 reject 作为其参数。当异步任务顺利完成且返回结果值时，会调用 resolve 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用 reject 函数
+        new Promise((resolve, reject) => {
+            let x = Math.floor(Math.random() * 10).toString().search(/[0-4]/g);
+            console.log("x: " + x);
+            if (x == 0)
+                // 回调
+                resolve("resolve");
+            else
+                // 回调
+                reject("reject");
+        }).then(value =>
+            console.log(value)
+            , error => console.log(error));
+
+
+        // Async 语法，函数前的关键字 async 使函数返回 Promise
+
+        /*      函数定义写法
+                async function asyncFun() {
+                    return "async OK"; 等价于 return Promise.resolve("async OK");
+                } */
+
+        // 箭头函数写法
+        const asyncFun = async () => {
+            return "async OK";
+        }
+
+        // asyncFun() 返回 Promise 对象
+        asyncFun().then(value => { console.log(value); });
+
+
+        // Await 语法，函数前的关键字 await 使函数等待 promise，await 关键字只能在 async 函数中使用
+        async function loadFile() {
+            let promise = new Promise(function (resolve, reject) {
+                let req = new XMLHttpRequest();
+                req.open('GET', "../html/one.html");
+                req.onload = function () {
+                    if (req.status == 200) { resolve(req.response); }
+                    else { resolve("File not Found"); }
+                };
+                req.send();
+            });
+            document.getElementById("loadFile").innerHTML = await promise;
+        }
+
+        loadFile();
+
+    </script>
+</body>
+
+</html>

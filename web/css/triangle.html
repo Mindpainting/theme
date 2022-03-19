@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle</title>
+    <style>
+        .tra {
+            width: 0;
+            height: 0;
+            border-top: 10px solid red;
+            border-bottom: 10px solid green;
+            border-left: 10px solid blue;
+            border-right: 10px solid yellow;
+        }
+
+        .triangle {
+            /* 宽高必须为零 */
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: greenyellow;
+            margin: 20px;
+        }
+
+        .demo {
+            position: relative;
+            width: 50px;
+            height: 80px;
+            background-color: skyblue;
+        }
+
+        .demo span {
+            position: absolute;
+            left: 30px;
+            top: -10px;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-bottom-color: skyblue;
+        }
+
+        .adv-tri {
+            width: 0;
+            height: 0;
+            border-color: transparent purple transparent transparent;
+            border-style: solid;
+            border-width: 100px 50px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tra"></div>
+    <div class="triangle"></div>
+    <div class="demo">
+        <span></span>
+    </div>
+
+    <div class="adv-tri">
+
+    </div>
+</body>
+
+</html>

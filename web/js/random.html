@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button onclick="random()">Random Number</button>
+        <div id="random"></div>
+        <button onclick="maxMinRandom(24, 50)">Max Min Random</button>
+        <div id="maxMinRandom"></div>
+        <button onclick="getRndInteger(35, 55)">getRndInteger</button>
+        <div id="getRndInteger"></div>
+
+        <script>
+            // Math.random() 返回 0（包括） 至 1（不包括） 之间的随机数
+
+            // Math.random() 与 Math.floor() 一起使用用于返回随机整数
+            function random() {
+                document.getElementById("random").innerHTML = Math.floor(
+                    Math.random() * 10 // 返回 0 至 9 之间的数
+                    // Math.random() * 11 // 返回 0 至 10 之间的数
+                    // Math.random() * 100 // 返回 0 至 99 之间的数
+                    // Math.random() * 101 // 返回 0 至 100 之间的数
+
+                    // (Math.random() * 10) + 1 // 返回 1 至 10 之间的数
+                    // (Math.random() * 100) + 1 // 返回 1 至 100 之间的数
+                );
+            }
+
+            // 返回介于 min（包括）和 max（不包括）之间的随机数
+            function maxMinRandom(min, max) {
+                document.getElementById("maxMinRandom").innerHTML = Math.floor(
+                    Math.random() * (max - min) + min
+                );
+            }
+
+            // 返回介于 min 和 max（都包括）之间的随机数
+            function getRndInteger(min, max) {
+                document.getElementById("getRndInteger").innerHTML =
+                    Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        </script>
+    </body>
+</html>

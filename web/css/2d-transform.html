@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 移动盒子的位置：定位；盒子外边距；2d转换移动 */
+        /* translate 最大优点是不会影响到其他盒子的位置 */
+        .first {
+            width: 200px;
+            height: 200px;
+            background-color: springgreen;
+            transform: translate(50px, 50px);
+
+            /* 只移动 X 轴
+            transform: translate(50px, 0);
+            transform: translateX(50pxY); */
+
+            /*  只移动 Y 轴
+            transform: translate(0, 50px);
+            transform: translateY(50px); */
+        }
+
+        .second {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .third {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: coral;
+            /* 百分比参数移动的是盒子自身的高（宽）的百分比，不是浏览器的百分比 */
+            transform: translateX(50%);
+        }
+
+        /* 小盒子在大盒子水平垂直居中 */
+        .child {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background-color: violet;
+            transform: translate(-50%, -50%);
+        }
+
+        .fourth {
+            width: 100px;
+            height: 100px;
+            border: 2px solid red;
+            transform: rotate(30deg);
+        }
+
+        .trangle {
+            position: relative;
+            width: 150px;
+            height: 30px;
+            border: 1px solid grey;
+            margin-top: 50px;
+        }
+
+        .trangle::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            width: 10px;
+            height: 10px;
+            border-right: 1px solid grey;
+            border-bottom: 1px solid grey;
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .trangle:hover::after {
+            transform: rotate(225deg);
+        }
+
+        .trans-origin {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(160, 233, 160);
+            margin-top: 100px;
+            margin-left: 100px;
+            transition: all 1s;
+        }
+
+        .trans-origin:hover {
+            /* 中心旋转（默认）*/
+            transform-origin: center;
+            /* 左下为中心点旋转
+            transform-origin: left bottom; */
+            transform: rotate(360deg);
+        }
+
+        .scale {
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+
+        /* scale 最大优势可以设置转换中心点缩放，默认以中心点缩放，不影响其他盒子 */
+        .scale:hover {
+            /* 缩放 */
+            /* 宽和高都放大为原来的两倍 */
+            transform: scale(2);
+
+            /* 宽为原来的2倍，高不变
+            transform: scale(2, 1); */
+
+            /* 宽和高都缩小为原来的一半
+            transform: scale(0.5); */
+        }
+
+        .practice {
+            /* 清除浮动 */
+            overflow: hidden;
+        }
+
+        .practice div {
+            float: left;
+            width: 200px;
+            height: 100px;
+            margin-top: 50px;
+            margin-left: 20px;
+            overflow: hidden;
+        }
+
+        .practice img {
+            width: 100%;
+            height: 100%;
+            transition: all 0.4s;
+        }
+
+        .practice img:hover {
+            transform: scale(1.1);
+        }
+
+        /* 2D 转换综合写法 */
+        .all {
+            width: 100px;
+            height: 100px;
+            background-color: orangered;
+            margin: 50px 100px;
+            transition: all 1s;
+        }
+
+        .all:hover {
+            /* 有顺序问题，顺序会影响转换的效果 */
+            /* 位移放在最前面 */
+            transform: translate(50px, 50px) rotate(360deg) scale(1.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="first"></div>
+    <div class="second"></div>
+    <div class="third">
+        <div class="child"></div>
+    </div>
+    <div class="fourth"></div>
+    <div class="trangle"></div>
+    <div class="trans-origin"></div>
+    <div class="scale"></div>
+
+    <div class="practice">
+        <div><a href="#"><img src="../images/qljs.jpg" alt="qljs"></a></div>
+        <div><a href="#"><img src="../images/qljs.jpg" alt="qljs"></a></div>
+        <div><a href="#"><img src="../images/qljs.jpg" alt="qljs"></a></div>
+    </div>
+
+    <div class="all"></div>
+</body>
+
+</html>

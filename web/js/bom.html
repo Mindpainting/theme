@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+</head>
+
+<body>
+    <p id="size"></p>
+    <button id="back" onclick="back()">Back</button>
+    <button id="forward" onclick="forward()">Forward</button>
+
+    <p id="confirm"></p>
+    <p id="prompt"></p>
+
+    <button id="timing1" onclick="t1 = setTimeout(function1, 2000)">setTimeout start</button>
+    <button onclick="clearTimeout(t1)">setTimeout end</button><br />
+
+    <button id="timing2" onclick="t2 = setInterval(function2, 1000)">setInterval start</button>
+    <button onclick="clearInterval(t2)">setInterval end</button><br />
+    <p id="date"></p>
+    <script>
+        // 浏览器对象模型（Browser Object Model (BOM)）允许 JavaScript 与浏览器对话
+        // window 对象代表浏览器的窗口
+        // 所有全局 JavaScript 对象，函数和变量自动成为 window 对象的成员
+        // 全局变量是 window 对象的属性
+        // 全局函数是 window 对象的方法
+        // 甚至（HTML DOM 的）document 对象也是 window 对象属性
+        // window.document.getElementById("header"); 等同于 document.getElementById("header");
+
+        // 窗口尺寸
+        var w = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+
+        var h = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
+        document.getElementById("size").innerHTML = "浏览器内窗宽度：" + w + "，高度：" + h;
+
+        // window.open() - 打开新窗口
+        // window.close() - 关闭当前窗口
+        // window.moveTo() -移动当前窗口
+        // window.resizeTo() -重新调整当前窗口
+
+        // window.screen 对象包含用户屏幕的信息，window.screen 对象不带 window 前缀也可以写
+        // screen.width（screen.height） 属性返回以像素计的访问者屏幕的宽（高）度
+        // screen.availWidth（screen.availHeight）可用宽度（可用高度） 属性返回访问者屏幕的宽（高）度，以像素计，减去诸如窗口工具条之类的界面特征
+        // screen.colorDepth（色深） 属性返回用于显示一种颜色的比特数
+        // screen.pixelDepth（像素深度） 属性返回屏幕的像素深度
+
+
+        // window.location 对象可用于获取当前页面地址（URL）并把浏览器重定向到新页面
+        // window.location 对象可不带 window 前缀书写
+        // window.location.href 返回当前页面的 href (URL)
+        // window.location.hostname 返回 web 主机的域名
+        // window.location.port 属性返回（当前页面的）互联网主机端口的编号
+        // window.location.pathname 返回当前页面的路径或文件名
+        // window.location.protocol 返回使用的 web 协议（http: 或 https:）
+        // window.location.assign 加载新文档
+        console.log(location.href);
+        console.log(location.hostname);
+        console.log(location.port);
+        console.log(location.pathname);
+        console.log(location.protocol);
+        console.log(location.assign);
+
+
+        // window.history 对象包含浏览器历史，window.history 对象可不带 window 书写
+        // history.back()，history forward() 方法加载历史列表中前一个 URL。这等同于在浏览器中点击后退（前进）按钮
+        back = () => {
+            history.back();
+        }
+
+        forward = () => {
+            history.forward();
+        }
+
+
+        // window.navigator 对象包含有关访问者的信息，window.navigator 对象可以不带 window 前缀来写
+        // 浏览器 Cookie：cookieEnabled 属性返回 true，如果 cookie 已启用，否则返回 false
+        // 浏览器应用程序名称：navigator.appName 返回浏览器的应用程序名称 
+        // "Netscape" 是 IE11、Chrome、Firefox 以及 Safari 的应用程序名称的统称
+        // 浏览器应用程序代码名称：navigator.appCodeName 返回浏览器的应用程序代码名称
+        // "Mozilla" 是 Chrome、Firefox、IE、Safari 以及 Opera 的应用程序代码名称
+        // 浏览器平台：navigator.platform 返回浏览器引擎的产品名称
+        // 浏览器引擎：product 返回浏览器引擎的产品名称
+        // 浏览器版本：appVersion 返回有关浏览器的版本信息
+        // 浏览器代理：userAgent 返回由浏览器发送到服务器的用户代理报头（user-agent header）
+        // 浏览器语言：language 返回浏览器语言
+        // 浏览器是否在线：onLine 返回 true，浏览器在线
+        // Java 是否启用：javaEnabled() 方法返回 true，Java 已启用
+        // geolocation 只读返回一个 Geolocation 对象，据之可访问设备的地理位位置信息
+        console.log(navigator.cookieEnabled);
+        console.log(navigator.appName);
+        console.log(navigator.appCodeName);
+        console.log(navigator.platform);
+        console.log(navigator.product);
+        console.log(navigator.appVersion);
+        console.log(navigator.userAgent);
+        console.log(navigator.language);
+        console.log(navigator.onLine);
+        console.log(navigator.javaEnabled());
+        console.log(navigator.geolocation);
+
+
+        // JavaScript 有三种类型的弹出框：警告框、确认框、提示框
+        // window.alert() window.confirm() window.prompt()方法可以不带 window 前缀来写
+
+        // 警告框
+        alert("alert!");
+
+        // 确认框，如果用户单击确定，该框返回 true。如果用户单击取消，该框返回 false
+        if (confirm("confirm or cancel!")) {
+            document.getElementById("confirm").innerHTML = "已确认";
+        } else {
+            document.getElementById("confirm").innerHTML = "已取消";
+        }
+
+        // 提示框
+        // 用户单击确定，该框返回输入值。如果用户单击取消，该框返回 null
+        var name = prompt("Please enter your name!", "Jerry");
+        if (name != null) {
+            document.getElementById("prompt").innerHTML = name + " Welcome to cyber world!";
+        } else {
+            alert("User name is null!");
+        }
+
+        // 折行，如需在弹出框中显示折行，在反斜杠后面加一个字符 n
+        alert("Hello\nHow are you?");
+
+
+
+        // JavaScript Timing 事件，JavaScript 可以在时间间隔内执行
+        // setTimeout() 和 setInterval() 都属于 HTML DOM Window 对象的方法
+
+        // setTimeout(function, milliseconds)，在等待指定的毫秒数后执行函数
+        function1 = () => {
+            alert("setTimeout");
+        }
+
+        // clearTimeout() 方法停止执行 setTimeout() 中规定的函数
+        // 在规定的时间之前，必须单击停止（即执行clearTimeout()）
+
+        // setInterval(function, milliseconds)，等同于 setTimeout()，但持续重复执行该函数
+        function2 = () => {
+            document.getElementById("date").innerHTML = new Date().toLocaleTimeString();
+        }
+    </script>
+</body>
+
+</html>

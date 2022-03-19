@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // ISO 日期	"2018-02-19" （国际标准）
+            // 短日期	"02/19/2018" 或者 "2018/02/19"
+            // 长日期	"Feb 19 2018" 或者 "19 Feb 2019"
+            // 完整日期	"Monday February 25 2015"
+            // ISO 8601 语法 (YYYY-MM-DD) 也是首选的 JavaScript 日期格式 ISO 日期（完整的日期加时、分和秒）(YYYY-MM-DDTHH:MM:SS)
+
+            var date1 = new Date("2022-11-25");
+            document.write(date1 + "<br>");
+            var date2 = new Date("2022-11");
+            var date3 = new Date("2022");
+            var date4 = new Date("2018-02-19T12:00:00");
+
+            // 在设置日期时，如果不规定时区，则 JavaScript 会使用浏览器的时区。当获取日期时，如果不规定时区，则结果会被转换为浏览器时区。换句话说，假如日期/时间以 GMT（格林威治标准时间）创建，该日期/时间将被转换为 CST（中国标准时间），如果用户从中国进行浏览。
+
+            var date5 = new Date("2022/11/21");
+
+            // 长日期，逗号会被忽略，且对大小写不敏感
+            var date6 = new Date("May 15 2022");
+            var date7 = new Date("MAY, 15, 2022");
+            document.write(date6 + "<br>");
+            document.write(date7);
+
+            // 完整日期
+            var date8 = new Date(
+                "Mon Feb 19 2018 06:55:23 GMT+0100 (W. Europe Standard Time)"
+            );
+        </script>
+    </body>
+</html>

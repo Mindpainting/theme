@@ -1,0 +1,48 @@
+/* 标签选择器 */
+p {
+    color: aqua;
+    font-size: 20px;
+}
+
+span {
+    display: inline-block;
+}
+
+/* 类选择器 */
+.span-width-height {
+    width: 20px;
+    height: 10px;
+}
+
+.div-width-height {
+    width: 10px;
+    height: 20px;
+}
+
+.red {
+    background-color: red;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.green-yellow {
+    background-color: greenyellow;
+}
+
+.sky-blue {
+    background-color: skyblue;
+}
+
+.purple {
+    background-color: purple;
+}

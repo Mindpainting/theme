@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // JavaScript 类型转换: 通过使用 JavaScript 函数, 通过 JavaScript 本身自动转换
+
+            // 把数值转换为字符串
+            // 全局方法 String() 能够把数字转换为字符串。它可用于任意类型的数字、文字、变量或表达式
+            // 数字方法 toString() 同理
+            String(x);
+            String(123);
+            String(100 + 23);
+            String(true);
+            String(Date());
+
+            x.toString();
+            (123).toString();
+            (100 + 23).toString();
+            true.toString();
+            Date().toString();
+
+            // 把字符串转换为数值
+            Number("3.14"); // 返回 3.14
+            Number(" "); // 返回 0
+            Number(""); // 返回 0
+            Number("99 88"); // 返回 NaN
+            Number(true); // 返回 1
+            Number(new Date());
+        </script>
+    </body>
+</html>

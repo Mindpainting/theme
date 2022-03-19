@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 在 JavaScript 中有 5 种不同的可以包含值的数据类型：
+            // string, number, boolean, object, function
+            // 有 6 种类型的对象：Object, Date, Array, String, Number, Boolean
+            // 以及 2 种不能包含值的数据类型：null, undefined
+
+            // NaN 的数据类型是数字
+            // 数组的数据类型是对象
+            // 日期的数据类型是对象
+            // null 的数据类型是 object
+            // 未定义变量的数据类型为 undefined
+            // 未赋值的变量的数据类型也是 undefined
+            // 无法使用 typeof 来确定 JavaScript 对象是否是数组（或日期
+
+            // typeof 运算符总是返回字符串（包含操作数的类型）
+
+            // constructor 属性返回所有 JavaScript 变量的构造函数
+            document.write(
+                "Bill".constructor +
+                    "<br>" +
+                    false.constructor +
+                    "<br>" +
+                    (3.14).constructor +
+                    "<br>" +
+                    ["google", "firefox", "edge"].constructor +
+                    "<br>"
+            );
+
+            var array = ["google", "firefox", "edge"];
+
+            function isArray(myArray) {
+                // 检查 constructor 属性以确定对象是否为数组（包含 "Array" 一词）
+                return myArray.constructor.toString().indexOf("Array") > -1;
+
+                // 检查对象是否为数组函数
+                return myArray.constructor === Array;
+            }
+            document.write("isArray: " + isArray(array) + "<br>");
+
+            // 不幸的是，在 JavaScript 中，null 的数据类型是一个对象。你可以认为它是 JavaScript 中的一个 bug，typeof null 是一个对象。类型应为 null。您可以通过将对象设置为 null 来清空对象
+            document.write("type of null is: " + typeof null + "<br>");
+
+            // undefined 和 null 值相等但类型不同
+            document.write((null == undefined) + "<br>" + (null === undefined));
+        </script>
+    </body>
+</html>

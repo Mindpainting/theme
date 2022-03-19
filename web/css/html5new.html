@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Html5new</title>
+
+    <style>
+        input::placeholder {
+            color: yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 以下标签元素都是块级元素 -->
+    <header>头部标签</header>
+    <nav>导航标签</nav>
+    <article>内容标签</article>
+    <section>定义文档某个区域</section>
+    <aside>侧边栏标签</aside>
+    <footer>尾部标签</footer>
+
+
+    <!-- 以下新增 input 类型会限制用户的输入值 -->
+    <form action="#" method="post">
+        <ul>
+            <li>邮箱：<input type="email" name="email" id=""></li>
+            <li>网址：<input type="url" name="url" id=""></li>
+            <li>日期：<input type="date" name="date" id=""></li>
+            <li>时间：<input type="time" name="time" id=""></li>
+            <li>月份：<input type="month" name="month" id=""></li>
+            <li>周：<input type="week" name="week" id=""></li>
+            <li>数量：<input type="number" name="number" id=""></li>
+            <li>手机号码：<input type="tel" name="tel" id=""></li>
+            <li>搜索：<input type="search" name="search" id=""></li>
+            <li>颜色：<input type="color" name="color" id=""></li>
+            <li><input type="submit" value="提交"></li>
+        </ul>
+    </form>
+
+    <!-- required 必填
+         placeholder 提示文本 
+         autofocus 自动聚焦属性，页面加载完成后自动聚焦到指定表单
+         autocomplete 是否记录输入的历史记录 默认 on
+         multiple 多选文件提交-->
+    <form action="#">
+        <input type="search" name="search" id="search" required="required" placeholder="请输入..." autofocus="autofocus"
+            autocomplete="off">
+        <input type="submit" value="提交">
+    </form>
+
+    <!-- 视频，音频 -->
+    <video src=""></video>
+    <audio src=""></audio>
+
+</body>
+
+</html>

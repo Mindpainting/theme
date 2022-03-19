@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="nan"></div>
+        <div id="typeofnan"></div>
+        <div id="typeofinfinity"></div>
+        <script>
+            // NaN 是数，typeof NaN 返回 number
+            var x = NaN;
+            var y = 3;
+            var z = x + y;
+            document.getElementById("nan").innerHTML = "z= " + z;
+            document.getElementById("typeofnan").innerHTML =
+                "The type of NaN is " + typeof NaN;
+
+            // Infinity （或 -Infinity）是 JavaScript 在计算数时超出最大可能数范围时返回的值
+            // 除以 0（零）也会生成 Infinity
+            // Infinity 是数：typeOf Infinity 返回 number
+            document.getElementById("typeofinfinity").innerHTML =
+                "The type of Infinity is " + typeof Infinity;
+        </script>
+    </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            /* 透视（视距）：眼睛到屏幕的距离，视距越大看到的物体越小，视距越小看到的物体越大 */
+            /* 透视写到被观察盒子的父盒子上面，单位是 px */
+            /* 透视是近大远小，透视越大盒子越小，透视越小盒子越大 */
+            perspective: 500px;
+        }
+
+        .size {
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            transition: all 1s;
+        }
+
+        .coral {
+            background-color: coral;
+            /* 物体距离屏幕的距离，z越大，看到的越大物体越大 */
+            transform: translateZ(100px);
+            /* transform: translate3d(500px, 200px, 100px); */
+        }
+
+        .coral:hover {
+            transform: rotateX(45deg);
+            /* transform: rotateX(-45deg); */
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .green:hover {
+            transform: rotateY(90deg);
+            /* transform: rotateY(-90deg); */
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .blue:hover {
+            transform: rotateZ(90deg);
+            /* transform: rotateZ(-90deg); */
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .yellow:hover {
+            /* 绕 x 轴旋转 */
+            /* transform: rotate3d(1, 0, 0, 90deg); */
+            /* 绕 y 轴旋转 */
+            /* transform: rotate3d(0, 1, 0, 90deg); */
+            /* 绕 z 轴旋转 */
+            /* transform: rotate3d(0, 0, 1, 90deg); */
+
+            /* 绕 x 轴和 y 轴的向量和旋转 */
+            transform: rotate3d(1, 1, 0, 90deg);
+        }
+
+        .preserve {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            /* 子元素开启立体空间 */
+            /* 代码写给父级，但是影响子盒子，这个属性很注重要 */
+            transform-style: preserve-3d;
+            transition: all 1s;
+        }
+
+        .preserve:hover {
+            transform: rotateY(75deg);
+        }
+
+        .preserve div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: greenyellow;
+        }
+
+        .preserve div:last-child {
+            background-color: skyblue;
+            transform: rotateX(90deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="coral size"></div>
+    <div class="green size"></div>
+    <div class="blue size"></div>
+    <div class="yellow size"></div>
+
+    <div class="preserve">
+        <div></div>
+        <div></div>
+    </div>
+</body>
+
+</html>

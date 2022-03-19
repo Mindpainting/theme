@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="checkCookie()">
+    <script>
+        // Cookie 是为了解决如何记住用户信息而发明的：当用户访问网页时，他的名字可以存储在 cookie 中。下次用户访问该页面时，cookie 会记住他的名字
+
+        // Cookie 字符串 document.cookie 属性看起来像一个正常的文本字符串。但它不是。即使你向 document.cookie 写一份完整的 cookie 字符串，当再次读取时，你只能看到它的名称-值对。如果设置了新 cookie，则旧的 cookie 不会被覆盖。新的 Cookie 会被添加到 document.cookie，所以如果你读取 document.cookie，你得到的东西会像这样：
+        // cookie1 = value; cookie2 = value;
+
+        // 函数的的参数是：cookie 的名字（cname），cookie 的值（cvalue），以及知道 cookie 过期的天数（exdays）。通过把 cookie 名称、cookie 值和过期字符串相加，该函数就设置了 cookie
+        function setCookie(cname, cvalue, exdays) {
+            var date = new Date();
+            date.setTime(date.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + date.toUTCString();
+            // 创建 cookie
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            // 创建变量（name）与要搜索的文本（CNAME"="）
+            var name = cname + "=";
+
+            // 解码 cookie 字符串，处理带有特殊字符的 cookie，例如 "$"
+            var decodedCookie = decodeURIComponent(document.cookie);
+
+            // 用分号把 document.cookie 拆分到名为 ca 的数组中
+            var ca = decodedCookie.split(';');
+
+            // 遍历 ca 数组，然后读出每个值
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                // 循环作用是，如果用户输入的用户名前面有空格，则自动从下一个字符截取到最后一个字符作为下一轮循环的字符串，直到截取的用户名的前面没有空格
+                // 此外，第一次没有填用户名的时候，用户名为空，不等于空格，所以，会跳过循环
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                // 如果找到 cookie，则返回该 cookie 的值，如果未找到 cookie，则返回 ""
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var user = getCookie("username");
+            if (user != "") {
+                alert("Welcome again " + user);
+            } else {
+                user = prompt("Please enter your name:", "");
+                if (user != "" && user != null) {
+                    setCookie("username", user, 365);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

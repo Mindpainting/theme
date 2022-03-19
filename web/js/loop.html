@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="forin"></div>
+    <div id="forof"></div>
+    <div id="jslabel"></div>
+    <script>
+        var txt = "";
+        var person = { fname: "Bill", lname: "Gates", age: 62 };
+
+        // for in 循环遍历对象的属性
+        for (var x in person) {
+            txt += person[x] + " ";
+        }
+        document.getElementById("forin").innerHTML = txt;
+
+        // for of 语句循环遍历可迭代对象的值。它允许您循环遍历可迭代的数据结构，例如数组、字符串、映射、节点列表等
+        const cars = ["BMW", "Volvo", "Mini"];
+        let language = "JavaScript";
+        let text = "";
+        for (let x of language) {
+            text += x + " ";
+        }
+        document.getElementById("forof").innerHTML = text;
+
+        // JavaScript 标签
+        // continue 语句（不论有无标签引用）只能用于跳过一个迭代。break 语句，如果没有标签引用，只能用于跳出一个循环或一个 switch。
+        // 如果有标签引用，则 break 语句可用于跳出任意代码块
+        var car = ["BMW", "Volvo", "Saab", "Ford"];
+        var t = "";
+        list: {
+            t += car[0] + " ";
+            t += car[1] + " ";
+            t += car[2] + " ";
+            break list; // 跳出代码块 list
+            t += car[3] + "<br>";
+        }
+        document.getElementById("jslabel").innerHTML = t;
+    </script>
+</body>
+
+</html>

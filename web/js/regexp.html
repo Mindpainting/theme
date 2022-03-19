@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            var reg =
+                "Whether the weather be fine or whether the weather be not.Whether the weather be cold or whether the weather be hot.We'll weather the weather whether we like it or not";
+
+            document.write(reg.search(/weather/i));
+
+            document.write("<br>" + reg.replace(/weather/g, "WATER"));
+
+            // 正则表达式模式
+            // [abc]	查找方括号之间的任何字符
+            // [^abc]	查找任何不在方括号之间的字符
+            // [0-9]	查找任何从 0 至 9 的数字
+            // [a-z]	查找任何从小写 a 到小写 z 的字符
+            // [A-Z]	查找任何从大写 A 到大写 Z 的字符
+            // [A-z]	查找任何从大写 A 到小写 z 的字符
+            // [adgk]	查找给定集合内的任何字符
+            // [^adgk]	查找给定集合外的任何字符
+            // (red|blue|green)	查找任何指定的选项
+
+            // .	查找单个字符，除了换行和行结束符
+            // \w	查找单词字符
+            // \W	查找非单词字符
+            // \d	查找数字
+            // \D	查找非数字字符
+            // \s	查找空白字符
+            // \S	查找非空白字符
+            // \b	匹配单词边界
+            // \B	匹配非单词边界
+            // \0	查找 NUL 字符
+            // \n	查找换行符
+            // \f	查找换页符
+            // \r	查找回车符
+            // \t	查找制表符
+            // \v	查找垂直制表符
+            // \xxx	查找以八进制数 xxx 规定的字符
+            // \xdd	查找以十六进制数 dd 规定的字符
+            // \uxxxx	查找以十六进制数 xxxx 规定的 Unicode 字符
+            // n+	匹配任何包含至少一个 n 的字符串
+            // n*	匹配任何包含零个或多个 n 的字符串
+            // n?	匹配任何包含零个或一个 n 的字符串
+            // n{X}	匹配包含 X 个 n 的序列的字符串
+            // n{X,Y}	匹配包含 X 至 Y 个 n 的序列的字符串
+            // n{X,}	匹配包含至少 X 个 n 的序列的字符串
+            // n$	匹配任何结尾为 n 的字符串
+            // ^n	匹配任何开头为 n 的字符串
+            // ?=n	匹配任何其后紧接指定字符串 n 的字符串
+            // ?!n	匹配任何其后没有紧接指定字符串 n 的字符串
+
+            // 正则表达式修饰符
+            // i 执行对大小写不敏感的匹配
+            // g 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止
+            // m 执行多行匹配
+
+            // exec() 检索字符串中指定的值。返回找到的值，并确定其位置
+            // test() 检索字符串中指定的值。返回 true 或 false
+            // match()	找到一个或多个正则表达式的匹配，搜索结果依赖于修饰符 g
+            document.write(
+                "<br>" + /e/.exec("The best things in life are free!")
+            );
+            document.write(
+                "<br>" + /e/.test("The best things in life are free!")
+            );
+            document.write("<br>" + reg.match(/weather/g));
+            document.write("<br>" + reg.match(/weather/));
+
+            var regexp = "ABCabc. aooobc123jklzxcv6948,#&%";
+            document.write("<br>" + regexp.match(/\d/g));
+            document.write("<br>" + regexp.match(/./g));
+            document.write("<br>" + regexp.match(/ao+/g));
+        </script>
+    </body>
+</html>

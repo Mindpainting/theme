@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* 后代选择器 选择所有的子孙后代*/
+        /* ul li {
+            culor: rgb(255, 0, 0);
+        } */
+
+        ul li a {
+            color: rgb(255, 0, 0);
+        }
+
+        /* .houdai li {
+            culor: rgb(255, 0, 0);
+        } */
+
+        /* 子选择器 只选亲儿子*/
+        div>a {
+            color: rgb(0, 255, 34);
+        }
+
+        /* 并集选择器 选择多组标签，同时为他们定义相同的样式 */
+        span,
+        h6,
+        .merge li {
+            color: rgb(255, 0, 149);
+        }
+
+        /* 伪类选择器 */
+
+        /* 链接伪类选择器 */
+        /*         - a:link      未访问的链接 
+        - a:visited   已访问的链接
+        - a:hover     鼠标移动到链接上
+        - a:active    选定的链接 */
+        /* 为了确保生效，按照 link-->visited-->hover-->active 顺序写的 */
+
+        /* 未访问链接 */
+        a:link {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* 访问过的链接 */
+        a:visited {
+            color: rgb(215, 218, 40);
+        }
+
+        /* 鼠标经过的链接 */
+        a:hover {
+            color: skyblue;
+        }
+
+        /* 鼠标点击没松的链接 */
+        a:active {
+            color: greenyellow;
+        }
+
+        /* 把获取光标的input表单元素选取出来 */
+        input:focus {
+            background-color: rgb(124, 231, 82);
+            color: rgb(192, 17, 169);
+        }
+
+        /* :focus 伪类选择器 */
+        /* 把获取光标的input表单元素选取出来 */
+        input:focus {
+            background-color: rgb(228, 236, 225);
+            color: rgb(192, 17, 169);
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>A</li>
+        <li><a href="#">B</a></li>
+    </ul>
+
+    <ul class="houdai">
+        <li>C</li>
+        <li><a href="#">D</a></li>
+    </ul>
+
+    <div>
+        <a href="#">儿子</a>
+        <p><a href="#">孙子</a></p>
+    </div>
+
+    <span>并集选择器</span>
+    <h6>并集选择器</h6>
+    <ul class="merge">
+        <li>merge</li>
+        <li>merge</li>
+        <li>merge</li>
+    </ul>
+
+    <a href="#">链接伪类选择器</a>
+
+    <div>
+        <input type="text" />
+        <input type="text" />
+        <input type="text" />
+    </div>
+</body>
+
+</html>

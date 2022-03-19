@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">点击我！</button>
+    <p id="demo"></p>
+    <script>
+        // JavaScript 函数可以通过一个表达式定义。函数表达式可以存储在变量中
+        // 在函数表达式存储在变量后，变量也可作为一个函数使用
+        // 以上函数实际上是一个 匿名函数 (函数没有名称)。函数存储在变量中，不需要函数名称，通常通过变量名来调用
+        hello1 = function () {
+            return "1-->Hello World!";
+        };
+
+        // 箭头函数
+        hello2 = () => {
+            return "2-->Hello World!";
+        };
+        document.write(hello2() + "<br>");
+
+        // 如果函数只有一个语句，并且该语句返回一个值，则可以去掉括号和 return 关键字，箭头函数默认返回值
+        hello3 = () => "3-->Hello World!";
+        document.write(hello3() + "<br>");
+
+        // 这仅在函数只有一条语句时才有效，如果有参数，则将它们传递到括号内
+        hello4 = (val, vat) => "4-->Hello " + val + vat;
+        document.write(hello4("World", "!") + "<br>");
+
+        // 事实上，如果只有一个参数，您也可以略过括号
+        hello5 = val => "5-->Hello " + val;
+        // hello5 = (val) => "5-->Hello " + val;
+        document.write(hello5("World!") + "<br>");
+
+        // 对于常规函数，this 表示调用该函数的对象
+        // 对于箭头函数，this 关键字始终表示定义箭头函数的对象
+        // 这两个例子都调用了两次方法，第一次是在页面加载时，第二次是在用户单击按钮时
+
+        var hello;
+        hello = () => {
+            document.getElementById("demo").innerHTML += this;
+        };
+
+        // window 对象调用函数：
+        window.addEventListener("load", hello);
+
+        // button 对象调用函数：
+        document.getElementById("btn").addEventListener("click", hello);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="backTicks1"></div>
+        <div id="backTicks2"></div>
+        <script>
+            //  Back-Tics 语法 模板字面量使用反引号 (``) 而不是引号 ("") 来定义字符串
+            // 通过使用模板字面量，可以在字符串中同时使用单引号和双引号
+            var str1 = "google";
+            var str2 = "gulugulu";
+            var str3 = `welcome to ${str1} ${str2}`;
+            document.getElementById("backTicks1").innerHTML = str3;
+
+            var x = 6;
+            var y = 8;
+            document.getElementById("backTicks2").innerHTML = `${(3 + x) * y}`;
+        </script>
+    </body>
+</html>
