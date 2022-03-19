@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.OrderDao">
+
+	<resultMap id="baseOrderMap" type="com.mybatis.entity.Order" autoMapping="false">
+		<id column="id" property="id"/>
+		<result column="create_time" property="createTime"/>
+		<result column="price" property="price"/>
+		<result column="remark" property="remark"/>
+	</resultMap>
+
+	<!--自定义映射规则-->
+	<resultMap id="orderMap" type="com.mybatis.entity.Order" extends="baseOrderMap">
+		<result column="user_id" property="userId"/>
+	</resultMap>
+
+	<select id="queryAll" resultMap="orderMap">
+		select * from orders
+	</select>
+
+	<resultMap id="orderUserMap" type="Order" extends="orderMap" autoMapping="false">
+		<result column="uid" property="user.id"/>
+		<result column="name" property="user.name"/>
+		<result column="age" property="user.age"/>
+		<result column="address" property="user.address"/>
+	</resultMap>
+	<select id="queryById" resultMap="orderUserMap">
+		SELECT
+		o.id, o.create_time, o.price, o.remark, o.user_id uid , u.name, u.age, u.address
+		FROM
+		orders o, user u
+		WHERE
+		o.user_id = u.id
+		AND o.id = #{id}
+	</select>
+</mapper>

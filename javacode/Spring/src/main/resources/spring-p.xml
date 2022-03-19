@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--spring p 命名空间简化 property 的配置-->
+	<bean id="student" class="com.spring.entity.Student" p:id="333333" p:name="GHH" p:age="16"
+	      p:addresses-ref="address"/>
+	<bean id="address" class="com.spring.entity.Address" p:province="广西" p:city="桂林"/>
+</beans>

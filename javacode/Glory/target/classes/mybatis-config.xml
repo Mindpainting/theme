@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--读取 jdbc.properties-->
+	<properties resource="jdbc.properties">
+	</properties>
+	<settings>
+		<!--开启自动驼峰命名映射,开启后可以实现数据库字段 team_leader自动映射为 teamLeader-->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<package name="com.glory.dao"/>
+	</mappers>
+</configuration>

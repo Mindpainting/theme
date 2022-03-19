@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.repository.IdiomRepository">
+
+	<select id="queryAll" resultType="com.springboot.entity.Idiom">
+		select * from idiom;
+	</select>
+
+	<select id="queryById" resultType="com.springboot.entity.Idiom">
+		select * from idiom where id = #{id};
+	</select>
+
+	<insert id="insert">
+		insert into idiom(idiom, meaning) values(#{idiom},#{meaning})
+	</insert>
+
+	<update id="update">
+		update idiom set idiom = #{idiom}, meaning = #{meaning} where id = #{id}
+	</update>
+
+	<delete id="deleteById">
+		delete from idiom where id = #{id}
+	</delete>
+</mapper>

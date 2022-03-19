@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+        <title>IdiomMybatis</title>
+    </head>
+    <body>
+        <div>
+            <table th:class="layui-table" lay-even>
+                <colgroup>
+                    <col th:width="50">
+                    <col th:width="100">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>idiom</th>
+                    <th>meaning</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="idiom:${idiomList}">
+                    <td th:text="${idiom.id}"></td>
+                    <td th:text="${idiom.idiom}"></td>
+                    <td th:text="${idiom.meaning}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

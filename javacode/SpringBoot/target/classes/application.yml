@@ -1,0 +1,27 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false         #关闭缓存，可以在开发过程中立即看到页面修改的结果
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/book
+    username: root
+    password: 240957
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
+
+# 设置项目访问路径，在访问路径前必须加
+server:
+  port: 8081
+#  servlet:
+#    context-path: /springboot
+  tomcat:
+    uri-encoding: utf-8
+

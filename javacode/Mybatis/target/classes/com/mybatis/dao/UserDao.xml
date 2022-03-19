@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.UserDao">
+
+	<select id="queryAll" resultType="user">
+		select * from user
+	</select>
+
+	<select id="queryById" resultType="user">
+		select * from user where id = #{id}
+	</select>
+
+	<select id="queryByUser" resultType="user">
+		select * from user where id = #{id} and name = #{name} and age = #{age} and address = #{address}
+	</select>
+
+	<select id="queryByMap" resultType="user">
+		select * from user where id = #{id} and name = #{name} and age = #{age} and address = #{address}
+	</select>
+
+	<!--在 test属性中表示参数不需要写 #{}-->
+	<select id="queryByParams" resultType="user">
+		select * from user
+		<!--        <trim prefix="where" prefixOverrides="and"></trim>    等价于 <where></where>
+				where标签动态的拼接 where并且去除前缀的 and 或者 or-->
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertUser">
+		insert into user values (#{id}, #{name}, #{age}, #{address})
+	</insert>
+
+	<delete id="deleteUser">
+		delete from user where id = #{id}
+	</delete>
+
+	<update id="updateUser">
+		update user
+		<!--        <trim prefix="set" suffixOverrides="," ></trim> 等价于 <set></set>
+				set标签动态的拼接set并且去除后缀的逗号-->
+		<set>
+			<if test="name != null">
+				age = #{name},
+			</if>
+			<if test="age != null">
+				age = #{age},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!--    collection：表示要遍历的参数
+		open:表示遍历开始时拼接的语句
+		item：表示给当前遍历到的元素的取的名字
+		separator：表示每遍历完一次拼接的分隔符
+		close：表示最后一次遍历完拼接的语句-->
+	<select id="queryByIds" resultType="user">
+		select * from user
+		<where>
+			<foreach collection="ids" open="id in(" close=")" item="element" separator=",">
+				#{element}
+			</foreach>
+		</where>
+	</select>
+
+</mapper>

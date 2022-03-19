@@ -1,0 +1,42 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SpringMVC:war exploded">
+    <output-path>$PROJECT_DIR$/target/SpringMVC</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>SpringMVC</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SpringMVC" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.3.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:5.3.16" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.22" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.79" />
+          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+          <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:7.0.1.Final" />
+          <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:3.0.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.5.1" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.4.2.Final" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/SpringMVC/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="SpringMVC/web/Web" />
+    </root>
+  </artifact>
+</component>

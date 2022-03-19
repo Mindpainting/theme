@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+    </head>
+    <body>
+        <!-- 文本 -->
+        <p th:text="${name}">Thymeleaf</p>
+
+        <p th:text="${welcome}"></p>
+        <!-- 未定义文本 -->
+        <p th:utext="${welcome}"></p>
+
+        <!-- th:object="${user}" 选定对象 -->
+        <div th:object="${user}">
+            <p th:text="*{username}"></p>
+            <p th:text="*{password}"></p>
+        </div>
+        <!-- 和上面的写法等价 -->
+        <div>
+            <p th:text="${user.username}"></p>
+            <p th:text="${user.password}"></p>
+        </div>
+        <!-- 只要没有选定的对象，美元和星号语法的操作完全相同，且可以混合使用 -->
+        <div>
+            <p th:text="${user.username}"></p>
+            <p th:text="*{user.password}"></p>
+        </div>
+
+        <!-- 文本只是在单引号之间指定的字符串 -->
+        <p th:text="'working web application'">text</p>
+        <!-- 文本替换 -->
+        <p th:text="|Welcome to our application, ${name}!|"></p>
+        <p th:text="'Welcome to our application, ' + ${name} + '!'"></p>
+
+        <!-- 设置任何属性的值，修改多个属性用逗号隔开 -->
+        <!-- <img src="../../images/logo.png" th:attr="src=@{/images/logo.png},title=#{logo},alt=#{logo}" /> -->
+        <!-- 为特定属性设置值 有很多属性，每个属性都针对特定的 HTML5属性 -->
+        <!-- <input type="submit" value="Subscribe!" th:attr="value=#{subscribe.submit}"/> -->
+        <!-- <form action="subscribe.html" th:action="@{/subscribe}"> -->
+        <!-- <li><a href="product/list.html" th:href="@{/product/list}">Product List</a></li> -->
+
+        <!-- 迭代 th:each -->
+        <table >
+            <caption>商品信息</caption>
+            <thead>
+            <tr>
+                <th>商品编号</th>
+                <th>商品种类</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="x : ${merchandise}">
+                <td th:text="${x.id}"></td>
+                <td th:text="${x.category}"></td>
+                <td th:text="${x.price}"></td>
+                <td th:text="${x.amount}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- 条件判断 th:if -->
+        <!-- score 为空则判断结果为 false -->
+        <p th:if="${score >= 90}">优秀</p>
+        <p th:if="${score >= 80 && score < 90}">良好</p>
+        <p th:if="${score < 60}">不及格</p>
+
+        <!-- th:unless 也⽤作条件判断，逻辑与 th:if 恰好相反，如果条件不成⽴则显示，否则不显示 -->
+        <p th:unless="${score} < 90">优秀</p>
+        <p th:unless="${score} < 60">及格</p>
+
+        <!-- th:switch th:case -->
+        <div th:switch="${name}">
+            <p th:case="泠鸢">泠鸢</p>
+            <p th:case="风铃">风铃</p>
+            <p th:case="钰袖">钰袖</p>
+        </div>
+
+        <!-- th:action ⽤来指定请求的 URL，相当于 form 表单中的 action 属性 -->
+        <form th:action="@{/action}" method="post">
+            <input type="submit" value="提交">
+        </form>
+    </body>
+</html>

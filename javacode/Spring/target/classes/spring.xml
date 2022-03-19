@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--beans rootElement-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- bean is element, id and class is attribute, student is attributeValue-->
+	<!--调用无参构造函数创建对象-->
+    <!--ref ：将 IoC 中的另外⼀个 bean 赋给当前的成员变量-->
+	<bean id="student" class="com.spring.entity.Student">
+		<property name="id" value="111111"/>
+		<property name="name" value="Thy"/>
+		<property name="age" value="18"/>
+		<property name="addresses">
+            <!--给 bean 注入集合-->
+			<list>
+				<ref bean="address"/>
+				<ref bean="address1"/>
+			</list>
+		</property>
+	</bean>
+
+	<!--调用有参构造函数创建对象-->
+	<bean id="studentArgs" class="com.spring.entity.Student">
+<!--		<constructor-arg index="0" value="222222"/>
+		<constructor-arg index="1" value="Hys"/>
+		<constructor-arg index="2" value="19"/>
+		<constructor-arg index="3" ref="address"/>-->
+		<constructor-arg name="id" value="222222"/>
+		<constructor-arg name="name" value="Hys"/>
+		<constructor-arg name="age"  value="19"/>
+		<constructor-arg name="addresses" ref="address"/>
+	</bean>
+
+	<bean id="address" class="com.spring.entity.Address">
+		<property name="province" value="浙江"/>
+		<property name="city" value="杭州"/>
+	</bean>
+
+	<bean id="address1" class="com.spring.entity.Address">
+		<property name="province" value="江苏"/>
+		<property name="city" value="南京"/>
+	</bean>
+</beans>
