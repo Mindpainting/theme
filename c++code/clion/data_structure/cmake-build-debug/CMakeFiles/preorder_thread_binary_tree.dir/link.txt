@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2021.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\preorder_thread_binary_tree.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\preorder_thread_binary_tree.dir/objects.a @CMakeFiles\preorder_thread_binary_tree.dir\objects1.rsp
+C:\MinGW\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\preorder_thread_binary_tree.dir/objects.a -Wl,--no-whole-archive -o preorder_thread_binary_tree.exe -Wl,--out-implib,libpreorder_thread_binary_tree.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\preorder_thread_binary_tree.dir\linklibs.rsp

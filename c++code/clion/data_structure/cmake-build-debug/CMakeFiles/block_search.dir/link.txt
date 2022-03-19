@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2021.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\block_search.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\block_search.dir/objects.a @CMakeFiles\block_search.dir\objects1.rsp
+C:\MinGW\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\block_search.dir/objects.a -Wl,--no-whole-archive -o block_search.exe -Wl,--out-implib,libblock_search.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\block_search.dir\linklibs.rsp

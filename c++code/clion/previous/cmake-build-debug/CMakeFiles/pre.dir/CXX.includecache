@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/Clion workspace/previous/pre/joseph_ring.cc
+iostream
+-
+
+E:/Clion workspace/previous/pre/zigzag.cc
+iostream
+-
+iomanip
+-
+
