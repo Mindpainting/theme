@@ -442,3 +442,55 @@ C 和 C++ 中的宏是指编译之前由预处理器处理的标记。 在编译
 #define SIZE 10 // C-style
 constexpr int SIZE = 10; // modern C++
 ```
+
+
+
+### 成员初始化列表
+
+成员初始化列表只能用于构造函数。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Animal
+{
+public:
+	Animal(const string& name, const int& age);
+	virtual ~Animal() {};
+protected:
+	string name;
+	int age;
+};
+Animal::Animal(const string& name, const int& age)
+{
+	this->name = name;
+	this->age = age;
+}
+
+class Cat : public Animal
+{
+public:
+	// 派生类构造函数和成员变量均可使用成员列表初始化
+	Cat(const string& name, const int& age, const string& _color, const string& breed) : Animal(name, age), color(_color) { this->breed = breed; };
+	virtual ~Cat() {};
+	void out();
+private:
+	string color;
+	string breed; // 品种
+};
+void Cat::out()
+{
+	cout << "Cat: " << this->name << " " << this->age << " " << this->color << " " << this->breed << endl;
+}
+
+int main()
+{
+	Animal* animal;
+	Cat* cat = new Cat("白老师", 2, "金渐层", "英国短毛猫");
+	cat->out();
+	return 0;
+}
+```
+
