@@ -590,7 +590,7 @@ com.clone.shallowclone.Engine@12edcd21
 com.clone.shallowclone.Engine@12edcd21
 ```
 
-​		*由输出结果可以看出，只修改了原对象car1的engine值，克隆对象的engine值也随之改变了。说明浅克隆只是把原对象引用类型的engine对象的地址复制给了克隆对象，原对象和克隆对象的engine对象共用同一块内存。*
+​		*由输出结果可以看出，只修改了原对象 car1 的 engine 值，克隆对象的 engine 值也随之改变了。说明浅克隆只是把原对象引用类型的 engine 对象的地址复制给了克隆对象，原对象和克隆对象的 engine 对象共用同一块内存。*
 
 #### 深克隆
 
