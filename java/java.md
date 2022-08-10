@@ -592,6 +592,8 @@ com.clone.shallowclone.Engine@12edcd21
 
 ​		*由输出结果可以看出，只修改了原对象 car1 的 engine 值，克隆对象的 engine 值也随之改变了。说明浅克隆只是把原对象引用类型的 engine 对象的地址复制给了克隆对象，原对象和克隆对象的 engine 对象共用同一块内存。*
 
+![image-20220810113739990](C:\Users\think\AppData\Roaming\Typora\typora-user-images\image-20220810113739990.png)
+
 #### 深克隆
 
 ​		在深克隆中，无论原型对象的成员变量是值类型还是引用类型，都将复制一份给克隆对象，深克隆将原型对象的所有引用对象也复制一份给克隆对象。 简单来说，在深克隆中，除了对象本身被复制外，对象所包含的所有成员变量也将复制。
@@ -705,6 +707,8 @@ com.clone.deepclone.Engine@34c45dca
 ```
 
 ​		*由输出结果可以看出，原对象和克隆对象不论值类型属性和引用类型属性的修改都互不影响，说明深克隆是完完全全的将原对象复制了一份给克隆对象并在内存新开辟一片空间。*	
+
+![image-20220810113801900](C:\Users\think\AppData\Roaming\Typora\typora-user-images\image-20220810113801900.png)
 
 - **基本类型和不可变对象的引用（如String类）深克隆等于浅克隆。**
 - **引用类型。**
