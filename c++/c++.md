@@ -42,7 +42,9 @@ c: 00EFFC1C    7
 
 ### const
 
-#### 指针
+#### const修饰普通类型的变量
+
+#### const修饰指针
 
 指针是一个变量，其值为另一个变量的地址
 
@@ -69,7 +71,9 @@ c: 00EFFC1C    7
 	*p = 30;const* const p
 ```
 
-#### 引用
+
+
+#### const修饰引用
 
 - 定义引用时必须初始化，否则编译无法通过。
 
@@ -77,18 +81,18 @@ c: 00EFFC1C    7
 
   - > **普通引用相当于指针常量，可以通过引用修改其引用的内容，不能引用别的变量，即指针常量的不能改变指针的指向。**
 
-  - > **常引用相当于 指向常量的指针常量，既不能引用别的变量，也不能通过引用修改其引用的内容。**
+  - > **常引用相当于指向常量的指针常量，既不能引用别的变量，也不能通过引用修改其引用的内容。**
 
 - 也可以用一个引用去初始化另一个引用，这样两个引用就引用同一个变量
 
 - **不能用常量**或表达式（除非表达式返回值是某个变量的引用）**初始化普通引用**。
 
-- *当使用常量（字面量）对const引用进行初始化时，C++编译器会为常量值*
+- *当使用常量（字面量）对 const 引用进行初始化时，C++编译器会为常量值*
   *分配空间，并将引用名作为这段空间的别名*
 
 - 常引用和普通引用的区别在于：不能**通过引用**去修改其引用的内容，可以用别的办法修改。
 - **const int & e 相当于 const int * const e**
-- **普通引用 相当于 int *const e**
+- **普通引用 相当于 int * const e**
 
 ```c++
     // 常量初始化常引用
@@ -119,7 +123,136 @@ c: 00EFFC1C    7
     m = 70; // 正确，通过修改原变量值，实现引用内容的修改
 ```
 
-----
+
+
+#### const参数传递和函数返回值
+
+##### const 修饰函数参数
+
+case1：值传递的 const 修饰传递，一般这种情况不需要 const 修饰，因为函数会自动产生临时变量复制实参值。
+
+case2：当 const 参数为指针时，可以防止指针被意外篡改。
+
+case3：自定义类型的参数传递，需要临时对象复制参数，对于临时对象的构造，需要调用构造函数，比较浪费时间，因此我们**采取 const 外加引用传递的方法**。并且对于一般的 int、double 等内置类型，我们不采用引用的传递方式。
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+class A
+{
+public:
+	// 这里使用 const& 避免调用复制构造函数，提升效率
+	void test_a(const A& a) {
+		cout << a.n << endl;
+	}
+
+private:
+	int n = 1;
+};
+
+int main() {
+	A a = A();
+	a.test_a(a);
+	return 0;
+}
+```
+
+
+
+##### **const 修饰函数的返回值**
+
+case1：const 修饰内置类型的返回值，修饰与不修饰返回值作用一样。
+
+case2：const 修饰自定义类型的作为返回值，此时返回的值不能作为左值使用，既不能被赋值，也不能被修改。
+
+case3：const 修饰返回的指针或者引用，是否返回一个指向 const 的指针，取决于我们想让用户干什么。
+
+#### const修饰类成员函数
+
+const 修饰类成员函数，其目的是防止成员函数修改调用对象的值，如果我们不想修改一个调用对象的值（this指向的对象），所有的成员函数都应当声明为 const 成员函数。
+
+如果有个成员函数想修改对象中的某一个成员，这时我们可以使用 mutable 关键字修饰这个成员，mutable 的意思也是易变的，容易改变的意思，被 mutable 关键字修饰的成员可以处于不断变化中。
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+class A
+{
+public:
+	int get_n1(const A& a) const {
+
+		// 常函数不允许修改调用对象的值
+		// n = 2; // error
+
+		// a为常对象，不可修改 n
+		// a.n = 2; // error
+
+		// 添加 mutable 后可以修改调用对象的值
+		n_++;
+		return n;
+	}
+
+	int get_n2(A& a) const {
+
+		// 常函数不允许修改调用对象的值
+		// n = 3;
+		
+		// a为普通对象可以修改 n
+		// a.n = 3; // correct
+		return n;
+	}
+
+private:
+	int n = 1;
+	mutable int n_ = 0;
+};
+
+int main() {
+	A a = A();
+	const A a1 = A();
+
+	cout << a.get_n1(a) << endl;
+	cout << a.get_n2(a) << endl;
+
+	return 0;
+}
+```
+```c++
+#include <iostream>
+
+using namespace std;
+
+class A {
+private:
+	class B {
+	public:
+		// 不加后面的const，报错二进制“ == ” : 没有找到接受“const A::B”类型的左操作数的运算符(或没有可接受的转换)
+		// 不加后面的const，== 只接受左侧为非 const 对象的比较，加上后，== 左右无论是否是const对象都能比较
+		bool operator==(const B& that) const {
+			return n == that.n;
+		}
+	private:
+		int n{0};
+	};
+
+public:
+	bool fun(const B& b1, const B& b2) {
+		return b1 == b2;
+	}
+};
+
+int main() {
+
+}
+```
+
+
+
+------
 
 
 
@@ -494,3 +627,153 @@ int main()
 }
 ```
 
+### 头文件预处理指令
+
+`#pragma once`是一个比较常用的C/C++预处理指令，只要在头文件的最开始加入这条预处理指令，就能够保证头文件只被编译一次。
+
+`#pragma once`是编译器相关的，有的编译器支持，有的编译器不支持，具体情况请查看编译器API文档，不过大部分编译器都有这个预处理指令了。
+
+`#ifndef，#define，#endif`是C/C++语言中的宏定义，通过宏定义避免文件多次编译。所以在所有支持C++语言的编译器上都是有效的，如果写的程序要跨平台，最好使用这种方式。
+
+```c++
+#ifndef _TIMEDIALOG_H // 加下划线防止名字冲突
+#define _TIMEDIALOG_H
+...
+#endif // TIMEDIALOG_H
+```
+
+### typeid ,size_t and  sizeof 
+
+`typeid`和`sizeof`均为C++运算符
+
+```c++
+#include <iostream>
+#include <typeinfo>
+
+using namespace std;
+
+class Knot {
+    public:
+    	inline int get_dot() {
+        	return dot;
+        }
+
+    private:
+    	int dot;
+};
+
+int main()
+{
+    int a = 0, b = 0;
+    double* p;
+    size_t st = 0;
+
+    // 前面必须加上const，因为"array"为常量字符串不能赋值给不是常量类型的arr
+    const char *arr = "array";
+
+    int int_arr[] = { 1, 2, 3, 4, 5, 6 };
+
+    Knot knot;
+
+    cout << typeid(a).name() << endl; // int
+
+    cout << typeid(p).name() << endl; // double * __ptr64
+
+    cout << typeid(st).name() << endl; // unsigned __int64
+
+    // 使用 typeid() 判断两个变量类型是否相同
+    cout << (typeid(a)==typeid(b)) << endl; // 1
+
+    cout << typeid(knot).name() << endl; // class Knot
+
+    clog << sizeof(int) << endl; // 4
+    clog << sizeof(arr) << endl; // 8
+    clog << sizeof(knot) << endl; // 4
+    clog << sizeof(int_arr) << endl; // 24
+
+    return 0;
+}
+```
+
+### const_cast运算符
+
+```c++
+#include<iostream>
+
+int main() {
+	// const_cast <type-id> (expression) 去除const，volatile 和__unaligned 属性
+	// <>中的类型必须是指针，引用或指向对象类型成员的指针
+
+	int a = 1;
+	const int &b = a;
+	const_cast<int&>(b) = 2;
+	std::cout << a << " " << b << std::endl;
+	return 0;
+}
+```
+
+### 内嵌类作用域
+
+本例为私有嵌套类
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+class A {
+public:
+	// 在 A 类的成员函数内部可以使用嵌套类类型定义对象和指针等
+	void fun1() {
+		B b2(2);
+		B* p2 = nullptr;
+		cout << "b2: " << b2.m_num << endl;
+	}
+
+	// 由于嵌套类 B 类在后面定义的，所以这里的 A 类成员函数返回值类型和参数类型均不可使用嵌套类类型
+	// 可以在 B 类定义的后面定义此函数
+	//B& fun2(B& b) {
+	//	B b3(3);
+	//	return b3;
+	//}
+
+	// 这里在嵌套类定义之前，不可使用嵌套类类型定义对象和指针
+	// B b5 = B(5);
+	// B* p5;
+
+private:
+	// 这里在嵌套类定义之前，不可使用嵌套类类型定义对象和指针
+	// B b4 = B(4); // error
+	// B* p4; // error
+
+	class B {
+	public:
+		B(int num):m_num(num) {}
+		
+		// 便于测试将 m_num 声明为公有
+		int m_num;
+	};
+
+	// 这里写 B b1(1); 会把 b1 当做 A 类的函数，不会调用嵌套类的构造函数，而没有定义 b1 函数，所以报错
+	B b1 = B(1);
+	
+	// 允许定义 B* 类型指针
+	B* p1;
+
+public:
+	B& fun2(/*B& b*/) {
+		B b3(3);
+		return b1;
+	}
+
+};
+
+int main() {
+	A a = A();
+	a.fun1();
+	cout << "b1: " << a.fun2().m_num << endl;
+	return 0;
+}
+```
+
+**私有嵌套类的作用域为被嵌套类内部，具体为被嵌套类的成员函数内部和嵌套类声明之后**
