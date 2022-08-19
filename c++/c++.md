@@ -1189,3 +1189,44 @@ int main()
 }
 ```
 
+### size_t和int比较
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    // size_t类型在64位系统中为long long unsigned int，非64位系统中为long unsigned int
+    // 这里为 long long unsigned int类型和__int64类型等价 
+
+    cout << sizeof(int) << endl; // 4
+    cout << sizeof(long) << endl; // 4
+    cout << sizeof(size_t) << endl; // 8
+
+    size_t x1 = 10;
+    int y1 = 8;
+    cout << (x1 > y1) << endl; // 1
+
+    size_t x2 = 0;
+    int y2 = 0;
+    cout << (x2 == y2) << endl; // 1
+
+    // 这里size_t类型的数值范围比int大，比较时int类型自动转换为size_t类型
+    // 由于int有符号，转换时连符号位一起当作数值
+    size_t x3 = 7;
+    int y3 = -7; // -7 转换为 18446744073709551609
+    cout << static_cast<size_t>(y3) << endl; // 18446744073709551609
+    cout << (x3 > y3) << endl; //  输出结果为x3 < y3，明显由于自动转换导致不是预期的结果
+    return 0;
+}
+```
+
+在size_t类型和int类型进行比较时，size_t类型的表示范围比int类型大，比较过程中int类型自动扩展为size_t类型，然后进行比较。在两个数都是0或正数时比较结果没有问题，但当int类型的数为负数时，转换后和size_t类型的另一个数的比较结果将出现意外的结果。
+
+**c++强制类型转换**
+
+有符号数向无符号数转：不改变数据的内容，只改变数据的解释方式。
+
+长数据类型向短数据类型转换：高位截断，保留低位。
+
+短数据类型向长数据类型转换：符号扩展。
