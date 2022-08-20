@@ -3,7 +3,19 @@
 #include <string>
 #include <stack>
 #include <cmath>
+#include <stdexcept>
+
 using namespace std;
+
+//
+class zero_divisor : public exception
+{
+public:
+    const char *what(void) const throw()
+    {
+        return "a divisor is zero";
+    }
+};
 
 // 中缀表达式：A + B * (C - D) - E / F
 
@@ -37,38 +49,43 @@ A B C D - * E F / - +
 // 判断运算符优先级
 int precede(char a, char b) // a 为当前扫描到的运算符，b 为栈顶运算符
 {
-/*
-1：当前扫描的运算符比栈顶运算符优先级高
-0：当前扫描的运算符和栈顶运算符优先级相同
--1：当前扫描的运算符比栈顶运算符优先级低
+    /*
+    1：当前扫描的运算符比栈顶运算符优先级高
+    0：当前扫描的运算符和栈顶运算符优先级相同
+    -1：当前扫描的运算符比栈顶运算符优先级低
 
-          s2  (  +  -   *   /   栈顶
-        s1 +  1  0, 0, -1, -1,
-           -  1  0, 0, -1, -1,
-           *  1  1, 1,  0,  0,
-           /  1  1, 1,  0,  0,
-*/
+              s2  (  +  -   *   /   栈顶
+            s1 +  1  0, 0, -1, -1,
+               -  1  0, 0, -1, -1,
+               *  1  1, 1,  0,  0,
+               /  1  1, 1,  0,  0,
+    */
 
-	string s1 = "+-*/", s2 = "(+-*/";
-	int m = 0, n = 0, PriM[4][5] = {   // 运算符优先级矩阵
-        1, 0, 0, -1, -1,
-        1, 0, 0, -1, -1,
-        1, 1, 1,  0,  0,
-        1, 1, 1,  0,  0,
-	};
-	while (s1[m] != a)  // 找到在s1中和当前扫描的运算符相等的运算符的序号，即为当前扫描的运算符在矩阵中的行号
-		m++;
-	while (s2[n] != b)  // 找到在s2中和栈顶运算符相等的运算符的序号，即为栈顶运算符在矩阵中的列号
-		n++;
-	return PriM[m][n];  // 输出行列号在矩阵中所对应的数值，即为当前扫描的运算符和栈顶运算符优先级的比较结果
+    string s1 = "+-*/", s2 = "(+-*/";
+    int m = 0, n = 0;
+    int PriM[4][5] = {
+        // 运算符优先级矩阵
+        {1, 0, 0, -1, -1},
+        {1, 0, 0, -1, -1},
+        {1, 1, 1, 0, 0},
+        {1, 1, 1, 0, 0},
+    };
+    while (s1[m] != a) // 找到在s1中和当前扫描的运算符相等的运算符的序号，即为当前扫描的运算符在矩阵中的行号
+        m++;
+    while (s2[n] != b) // 找到在s2中和栈顶运算符相等的运算符的序号，即为栈顶运算符在矩阵中的列号
+        n++;
+    return PriM[m][n]; // 输出行列号在矩阵中所对应的数值，即为当前扫描的运算符和栈顶运算符优先级的比较结果
 }
 
 // 判断是否输入的是合法的表达式
-bool judge_exp_legality(string exp) {
+bool judge_exp_legality(string exp)
+{
     string::iterator it;
     int flag = 1;
-    for (it = exp.begin(); it != exp.end(); ++it) {
-        if (*it != '(' && *it != ')' && *it != '+' && *it != '-' && *it != '*' && *it != '/' && *it < '0' || *it > '9') {
+    for (it = exp.begin(); it != exp.end(); ++it)
+    {
+        if (*it != '(' && *it != ')' && *it != '+' && *it != '-' && *it != '*' && *it != '/' && *it < '0' || *it > '9')
+        {
             flag = 0;
             break;
         }
@@ -76,7 +93,8 @@ bool judge_exp_legality(string exp) {
     return flag == 1;
 }
 
-bool calculate(stack<char> &opr, stack<int> &opd) {
+void calculate(stack<char> &opr, stack<int> &opd) throw(zero_divisor)
+{
     char ch; // 记录运算符栈出栈的运算符
     ch = opr.top();
     opr.pop();
@@ -88,8 +106,8 @@ bool calculate(stack<char> &opr, stack<int> &opd) {
     opd.pop();
 
     int c = 0; // 记录每次出栈的两个操作数的运算结果
-    int flag; // 记录本次运算是否成功（即运算过程中没有出现除数为零的情况），flag = 1成功，flag = 0失败
-    switch (ch) {
+    switch (ch)
+    {
     case '+':
         c = a + b;
         opd.push(c);
@@ -103,89 +121,101 @@ bool calculate(stack<char> &opr, stack<int> &opd) {
         opd.push(c);
         break;
     case '/':
-        if (b == 0) {
-            return false;
-        } else {
-            c = a / b;
+        if (b == 0)
+        {
+            throw zero_divisor();
+        }
+        else
+        {
+            // 这里小小的优化使计算结果四舍五入
+            // 將 a 强制转为 double 类型，以得到 double 类型的计算结果
+            double t1 = static_cast<double>(a) / b;
+            int t2 = a / b;
+            if ((t1 - t2) >= 0.5)
+                c = t2 + 1;
+            else
+                c = t2;
             opd.push(c);
             break;
         }
     default:
         break;
     }
-    return true;
 }
 
 // 计算中缀表达式的值，将中缀表达式转后缀表达式算法和后缀表达式求值算法结合
-int evaluate_infix_expression(string exp) {
+int evaluate_infix_expression(string exp) throw(zero_divisor)
+{
     stack<char> opr; // 运算符栈
-    stack<int> opd; // 操作数栈
+    stack<int> opd;  // 操作数栈
 
-    int flag = 1; // 记录本次运算是否成功（即运算过程中没有出现除数为零的情况），flag = 1成功，flag = 0失败
     stack<char> temp; // 将中缀表达式中的数字字符转换为整数
     string::iterator it_exp;
-    for (it_exp = exp.begin(); it_exp != exp.end(); ++it_exp) {
+    for (it_exp = exp.begin(); it_exp != exp.end(); ++it_exp)
+    {
 
-        if (*it_exp >= '0' && *it_exp <= '9') {
-            while (*it_exp >= '0' && *it_exp <= '9') {
+        if (*it_exp >= '0' && *it_exp <= '9')
+        {
+            while (*it_exp >= '0' && *it_exp <= '9')
+            {
                 temp.push(*it_exp);
                 it_exp++;
                 if (it_exp == exp.end())
                     break;
             }
             it_exp--; // 防止it_exp向后移动两位，直接跳过了一个字符
-            
-            int num = 0; // num 存放计算后多位操作数的整数形式
+
+            int num = 0;            // num 存放计算后多位操作数的整数形式
             int size = temp.size(); // 若直接将 temp.size()写在for循环中，则每执行一次i会增加，temp.size()会减少
-            for (int i = 0; i < size; ++i) {
+            for (int i = 0; i < size; ++i)
+            {
                 num = num + (temp.top() - '0') * pow(10, i);
                 temp.pop();
                 if (temp.empty())
                     opd.push(num);
             }
-        } else {
+        }
+        else
+        {
             if (opr.empty())
                 opr.push(*it_exp);
-            else {
+            else
+            {
                 // 左括号，直接进栈
                 if (*it_exp == '(')
                     opr.push(*it_exp);
 
                 // 右括号，直到左括号前的运算符出栈，最后左括号出栈
-                else if (*it_exp == ')') {
-                    while (opr.top() != '(') {
-                        flag = calculate(opr, opd);
+                else if (*it_exp == ')')
+                {
+                    while (opr.top() != '(')
+                    {
+                        calculate(opr, opd);
                     }
                     opr.pop(); // 左括号出栈
                 }
                 // 加减乘除运算符
-                else {
+                else
+                {
                     if (precede(*it_exp, opr.top()) == 1) // 当前扫描的运算符优先级高
                         opr.push(*it_exp);
 
-                    else { // 当前扫描的运算符比栈顶运算符优先级低或者相同
-                        flag = calculate(opr, opd);
+                    else
+                    { // 当前扫描的运算符比栈顶运算符优先级低或者相同
+                        calculate(opr, opd);
                         opr.push(*it_exp); // 栈顶优先级高的运算符出栈后，优先级低的进栈
                     }
                 }
             }
         }
-        if (flag == 0)
-            break;
     }
     // 所有表达式扫描完后 opr栈中所有剩余的运算符出栈
-    while (!opr.empty()) {
-        flag = calculate(opr, opd);
-        if (flag == 0)
-            return 0;
+    while (!opr.empty())
+    {
+        calculate(opr, opd);
     }
-    int result = 0;
-    if (flag == 1) {
-        result = opd.top();
-        return result;
-    } else {
-        return 0;
-    }
+
+    return opd.top();
 }
 
 int main()
@@ -193,12 +223,19 @@ int main()
     string exp;
     cout << "Please enter a positive integer expression:" << endl;
     cin >> exp;
-    if (judge_exp_legality(exp) == true) {
-        if (evaluate_infix_expression(exp) == 1)
+    if (judge_exp_legality(exp) == true)
+    {
+        try
+        {
             cout << evaluate_infix_expression(exp) << endl;
-        else
-            cout << "Zero divisor!" << endl;
-    } else {
+        }
+        catch (const exception &ex)
+        {
+            cout << ex.what() << endl;
+        }
+    }
+    else
+    {
         cout << "Please enter a valid expression:" << endl;
         cin >> exp;
     }
