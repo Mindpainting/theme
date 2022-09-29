@@ -544,9 +544,9 @@ int main() {
 ```c++
 int main() {
     int x = 1, y =2;
-    // 前置 "++"运算符的返回值是 x的引用，可以作为左值
+    // 前置 "++"运算符的返回值是 x 的引用，可以作为左值
     ++x = 10; // 正确
-    // 后置 "++"运算符的返回值不是 y的引用，不能作为左值
+    // 后置 "++"运算符的返回值不是 y 的引用，不能作为左值
     y++ = 20; // 错误
     cout << x << " " << y << endl; // x = 10
 }
@@ -945,6 +945,7 @@ int main() {
 
 	for (auto it = game_team.begin(); it != game_team.end(); ++it)
 	{
+        // 输出中数据的 key 和 value
 		cout << (*it).first << "---->" << (*it).second << endl;
 	}
 
@@ -1169,22 +1170,21 @@ int evaluate_infix_expression(string exp) throw(zero_divisor) {
 int main()
 {
     string exp;
-    cout << "Please enter a positive integer expression:" << endl;
-    cin >> exp;
-    if (judge_exp_legality(exp) == true) {
-        try
-        {
-            cout << evaluate_infix_expression(exp) << endl;
-        }
-        catch (const exception& ex)
-        {
-            cout << ex.what() << endl;
-        }   
-    }
-    else {
+
+    do {
         cout << "Please enter a valid expression:" << endl;
         cin >> exp;
+    } while (judge_exp_legality(exp) != true);
+
+    try
+    {
+        cout << "the result is: " << evaluate_infix_expression(exp) << endl;
     }
+    catch (const exception& ex)
+    {
+        cout << ex.what() << endl;
+    }
+
     return 0;
 }
 ```
@@ -1230,3 +1230,124 @@ int main() {
 长数据类型向短数据类型转换：高位截断，保留低位。
 
 短数据类型向长数据类型转换：符号扩展。
+
+### kmp
+
+```c++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// string容器的length()函数返回的是long long unsigned int(unsigned __int64)(size_t)类型
+// 这里不会出现负值，所以int和size_t比较不会出现问题
+int pattern_string_match(const string& s1, const string& s2) {
+    int i = 0, j = 0, k = 0;
+    size_t length_s1 = s1.length();
+    size_t length_s2 = s2.length();
+    while (i < length_s1 && j < length_s2) {
+        if (s1[i] == s2[j]) {
+            ++i;
+            ++j;
+        } else {
+            k++;
+            i = k;
+            j = 0;
+        }
+    }
+    if (j >= length_s2)
+        return k;
+    else
+        return 0;
+}
+
+// 这里 j 的值可以为负，在和length()函数返回的size_t类型进行比较会出现意想不到的结果
+int kmp(const string &s1, const string &s2, const int next[]) {
+    int i = 0, j = 0;
+    int length_s1 = static_cast<int>(s1.length());
+    int length_s2 = static_cast<int>(s2.length());
+
+    while (i < length_s1 && j < length_s2) {
+        if (j == -1 || s1[i] == s2[j]) {
+            ++i;
+            ++j;
+        } else {
+            j = next[j];
+        }
+    }
+    if (j >= length_s2)
+        return i - length_s2;
+    else
+        return 0;
+}
+
+// 求模式串的 next数组
+// next[i]表示在子串的第 i个字符与模式串匹配失败时，则跳到子串的 next[i]位置重新与主串当前位置进行比较
+void get_next(const string &s, int next[]) {
+    int i = 0, j = -1;
+    // next[0] = -1 表示子串的第一个字符和模式串当前的字符匹配失败，则模式串后移一位和子串的第一个字符继续比较
+    next[0] = -1;
+    while (i < s.length() - 1) {
+        if (j == -1 || s[i] == s[j])
+            next[++i] = ++j;
+        else
+            j = next[j];
+    }
+}
+
+// 模式串的next数组的优化，nextval数组
+void get_nextval(const string &s, int nextval[]) {
+    int i = 0, j = -1;
+    nextval[0] = -1;
+    while (i < s.length() - 1) {
+        if (j == -1 || s[i] == s[j]) {
+            ++i;
+            ++j;
+            if (s[i] != s[j])
+                nextval[i] = j;
+            else
+                nextval[i] = nextval[j];
+        } else
+            j = nextval[j];
+    }
+}
+
+// 显示next数组
+void display_next(const int next[], int length) {
+    for (int i = 0; i < length; ++i) {
+        cout << next[i] << " ";
+        if (i == length - 1)
+            cout << endl;
+    }
+}
+
+int main() {
+    // 主串
+    string main_string = "wonderland";
+    // 模式串
+    string pattern_string = "lan";
+
+    int next[25] = {0};
+    get_next(pattern_string, next);
+    cout << "next: ";
+    display_next(next, (int) pattern_string.length());
+
+    int nextval[25] = {0};
+    get_nextval(pattern_string, nextval);
+    cout << "nextval: ";
+    display_next(nextval, (int) pattern_string.length());
+
+    cout << pattern_string_match(main_string, pattern_string) << endl;
+    cout << kmp(main_string, pattern_string, next) << endl;
+    cout << kmp(main_string, pattern_string, nextval) << endl;
+}
+```
+
+```c++
+next: -1 0 0
+nextval: -1 0 0
+6
+6
+6
+```
+
