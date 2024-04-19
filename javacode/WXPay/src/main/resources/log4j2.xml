@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  status="info" 设置 Log4j2 内部日志记录的最低级别
+  monitorInterval="5" 自动加载配置文件的间隔时间
+-->
+<Configuration status="INFO" monitorInterval="5" strict="true" name="XMLConfig">
+
+    <Properties>
+        <!-- 相对路径 -->
+        <Property name="log_path">src/main/resources/logs</Property>
+        <Property name="log_pattern_console">%date{yyyy-MM-dd HH:mm:ss.SSS} %highlight{[%thread]} %threadId %highlight{%-5level} %file %l %logger{36} - %msg%n</Property>
+        <Property name="log_pattern_file">%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %threadId %-5level %file %l %logger{36} - %msg%n</Property>
+    </Properties>
+
+    <!-- 输出源，用于定义日志输出的地方 -->
+    <Appenders>
+        <!--  输出到控制台  -->
+        <Appender type="Console" name="CONSOLE">
+            <Layout type="PatternLayout">
+                <Pattern>${log_pattern_console}</Pattern>
+            </Layout>
+            <Filters>
+                <!-- 过滤掉低于指定级别的日志 -->
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Appender>
+
+        <!--  输出到文件  -->
+        <Appender type="File" name="FILE" fileName="${log_path}/log.log">
+            <Layout type="PatternLayout">
+                <Pattern>${log_pattern_file}</Pattern>
+            </Layout>
+        </Appender>
+
+        <!--  使用随机读写流输出到文件，性能提高  -->
+        <Appender type="RandomAccessFile" name="RANDOM_ACCESS_FILE" fileName="${log_path}/random_access.log" immediateFlush="false" append="false">
+            <Layout type="PatternLayout">
+                <Pattern>${log_pattern_file}</Pattern>
+            </Layout>
+        </Appender>
+
+        <!--  滚动文件输出，按照一定规则拆分日志文件  -->
+        <Appender type="RollingFile" name="ROLLING_FILE" fileName="${log_path}/rolling.log" filePattern="${log_path}/$${date:yyyy-MM-dd}/rolling-%d{yyyy-MM-dd-HH-mm}-%i.log">
+            <!--  日志文件输出格式  -->
+            <Layout type="PatternLayout">
+                <Pattern>${log_pattern_file}</Pattern>
+            </Layout>
+            <!--  日志文件滚动策略  -->
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <!-- 根据 filePattern 规则按时间节点拆分 -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="4"/>
+                <!-- 基于文件大小的触发策略，当文件达到 100MB 时生成一个新的日志文件 -->
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <!--  默认的滚动策略，当达到 50 个日志文件时，开始覆盖最旧的日志文件 -->
+            <DefaultRolloverStrategy max="50"/>
+        </Appender>
+    </Appenders>
+
+    <!--  定义日志记录器  -->
+    <Loggers>
+        <!-- 混合异步日志 -->
+        <!--
+          includeLocation="false" 日志中不包含发起日志事件的源代码位置
+          additivity="false" 这个日志记录器的消息不会将日志消息传递给更高级别的日志记录器，解决日志重复打印
+        -->
+        <AsyncLogger name="com.evjy.wxpay" level="INFO" includeLocation="true" additivity="false">
+            <AppenderRef ref="ROLLING_FILE"/>
+        </AsyncLogger>
+
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+</Configuration>

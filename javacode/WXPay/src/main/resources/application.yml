@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: WXPay
+  output:
+    ansi:
+      enabled: always
+
+# log4j2 日志配置
+logging:
+  config: classpath:log4j2.xml

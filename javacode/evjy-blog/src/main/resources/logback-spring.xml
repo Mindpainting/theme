@@ -1,0 +1,108 @@
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- Logback 提供了多种状态监听器实现
+        OnConsoleStatusListener 在控制台（即 System.out）上打印收到的状态信息
+        OnErrorConsoleStatusListener 将收到的状态信息打印在 System.err 上
+        NopStatusListener 会丢弃收到的状态信息
+    -->
+    <!-- 建议将状态侦听器放在配置文件的顶部 -->
+    <!-- NopStatusListener 关闭 logback 框架自身的日志输出 -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <!--  PatternLayout recognizes
+        "%black", "%red", "%green","%yellow","%blue", "%magenta","%cyan",
+        "%white", "%gray", "%boldRed","%boldGreen", "%boldYellow", "%boldBlue",
+        "%boldMagenta""%boldCyan", "%boldWhite" and "%highlight" as conversion words.
+        These conversion words are intended to contain a sub-pattern.
+        Any sub-pattern enclosed by a coloring word will be output in the specified color.
+    -->
+    <variable name="log_path" value="src/main/resources/logs" />
+    <variable name="log_pattern_console" value="%date %magenta([%thread]) %highlight(%-5level) %relative %cyan(%logger{36}) - %msg%n" />
+    <variable name="log_pattern_file" value="%date [%thread] %-5level %relative %logger{36} - %msg%n" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 范围日志级别过滤, 过滤日志级别低于 INFO 的日志, 收集日志级别等于或高于 INFO 的日志  -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <!-- 精确日志级别过滤, 日志级别等于 ERROR 的日志, 可以选择接收或拒绝 -->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+        <encoder>
+            <pattern>${log_pattern_console}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${log_path}/log.log</file>
+        <encoder>
+            <pattern>${log_pattern_file}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${log_path}/async_log.log</file>
+        <encoder>
+            <pattern>${log_pattern_file}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志文件拆分 -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!--        <file>${log_path}/roll/log.log</file>-->
+        <!-- 拆分策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 每日滚动 -->
+            <fileNamePattern>${log_path}/roll/log_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 每月滚动 -->
+            <!-- <fileNamePattern>log.%d{yyyy-MM}.%i.log</fileNamePattern> -->
+
+            <!-- 文件自动压缩 -->
+            <!-- <fileNamePattern>log.%d{yyyy-MM-dd}.%i.zip</fileNamePattern> -->
+            <!-- <fileNamePattern>log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern> -->
+
+            <!-- 限制日志文件大小,超过指定的大小新建一个日志文件 -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 设置每日滚动,最大保存时间为6天; 设置每月滚动,最大保存时间为6个月 -->
+            <maxHistory>6</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 设置不同的检查增量作为持续时间,默认情况下每 60 秒检查文件大小一次 -->
+            <!-- <checkIncrement>2</checkIncrement> -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log_pattern_file}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 异步日志 -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+    <!-- 多环境配置按照 active profile 选择分支 -->
+    <springProfile name="dev">
+        <logger name="com.evjy" level="INFO">
+            <additivity>false</additivity>
+            <appender-ref ref="ASYNC" />
+        </logger>
+
+        <logger name="com.evjy" level="INFO">
+            <additivity>false</additivity>
+            <appender-ref ref="ROLLING" />
+        </logger>
+
+        <!-- root节点 全局日志级别，用来指定最基础的日志输出级别 -->
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test|prod">
+        <!-- root节点 全局日志级别，用来指定最基础的日志输出级别 -->
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+        </root>
+    </springProfile>
+</configuration>

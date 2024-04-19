@@ -1,0 +1,81 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: evjy-blog
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/evjy-blog?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: root
+  data:
+    redis:
+      host: 172.19.54.224
+      port: 6379
+      database: 1
+      # 读超时
+      timeout: 3000
+      # 连接超时
+      connectTimeout: 5000
+      # Lettuce连接池
+      lettuce:
+        pool:
+          # 最小空闲连接
+          min-idle: 5
+          # 最大空闲连接
+          max-idle: 10
+          # 最大连接数
+          max-active: 100
+          # 连接分配应该阻塞的最大时间
+          max-wait: 2000
+
+  # 配置日期时间格式，解决 mybatis-plus 从数据库中查询出来返回给前端的数据日期时间格式不正确的问题
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# mybatis-plus 配置
+mybatis-plus:
+  mapper-locations: [ "classpath*:/mapper/**/*.xml" ]
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 全局 id 自增
+  global-config:
+    db-config:
+      id-type: auto
+
+# log4j2 日志配置
+#logging:
+#  config: classpath:log4j2.yml
+
+
+# 开发环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: 2233
+
+# 测试环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+server:
+  port: 3322
+
+# 生产环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+server:
+  port: 3333

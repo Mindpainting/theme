@@ -1,0 +1,31 @@
+# 用不了
+Configuration:
+  status: debug
+  monitorInterval: 5
+  strict: true
+  name: XMLConfig
+  properties:
+    property:
+      -
+        name: log_path
+        value: src/main/resources/logs
+      -
+        name: log_pattern
+        value: %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %threadId %highlight{%-5level} %file %l %logger{36} - %msg%n
+  thresholdFilter:
+    level: info
+  appenders:
+    Console:
+      name: CONSOLE
+      PatternLayout:
+        Pattern: ${log_pattern}
+    File:
+      name: FILE
+      fileName: ${log_path}/log.log
+      PatternLayout:
+        Pattern: ${log_pattern}
+  Loggers:
+    Root:
+      level: debug
+      AppenderRef:
+        ref: CONSOLE
