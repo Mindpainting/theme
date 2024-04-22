@@ -6,7 +6,7 @@
     -->
     <!-- 建议将状态侦听器放在配置文件的顶部 -->
     <!-- NopStatusListener 关闭 logback 框架自身的日志输出 -->
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
     <!--  PatternLayout recognizes
         "%black", "%red", "%green","%yellow","%blue", "%magenta","%cyan",
@@ -15,9 +15,10 @@
         These conversion words are intended to contain a sub-pattern.
         Any sub-pattern enclosed by a coloring word will be output in the specified color.
     -->
-    <variable name="log_path" value="src/main/resources/logs" />
-    <variable name="log_pattern_console" value="%date %magenta([%thread]) %highlight(%-5level) %relative %cyan(%logger{36}) - %msg%n" />
-    <variable name="log_pattern_file" value="%date [%thread] %-5level %relative %logger{36} - %msg%n" />
+    <variable name="log_path" value="src/main/resources/logs"/>
+    <variable name="log_pattern_console"
+              value="%date %magenta([%thread]) %highlight(%-5level) %relative %cyan(%logger{36}) - %msg%n"/>
+    <variable name="log_pattern_file" value="%date [%thread] %-5level %relative %logger{36} - %msg%n"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- 范围日志级别过滤, 过滤日志级别低于 INFO 的日志, 收集日志级别等于或高于 INFO 的日志  -->
@@ -25,11 +26,11 @@
             <level>INFO</level>
         </filter>
         <!-- 精确日志级别过滤, 日志级别等于 ERROR 的日志, 可以选择接收或拒绝 -->
-<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-<!--            <level>ERROR</level>-->
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
-<!--        </filter>-->
+        <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+        <!--            <level>ERROR</level>-->
+        <!--            <onMatch>ACCEPT</onMatch>-->
+        <!--            <onMismatch>DENY</onMismatch>-->
+        <!--        </filter>-->
         <encoder>
             <pattern>${log_pattern_console}</pattern>
         </encoder>
@@ -51,7 +52,7 @@
 
     <!-- 日志文件拆分 -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-<!--        <file>${log_path}/roll/log.log</file>-->
+        <!--        <file>${log_path}/roll/log.log</file>-->
         <!-- 拆分策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 每日滚动 -->
@@ -78,19 +79,19 @@
 
     <!-- 异步日志 -->
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </appender>
 
     <!-- 多环境配置按照 active profile 选择分支 -->
     <springProfile name="dev">
         <logger name="com.evjy" level="INFO">
             <additivity>false</additivity>
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="ASYNC"/>
         </logger>
 
         <logger name="com.evjy" level="INFO">
             <additivity>false</additivity>
-            <appender-ref ref="ROLLING" />
+            <appender-ref ref="ROLLING"/>
         </logger>
 
         <!-- root节点 全局日志级别，用来指定最基础的日志输出级别 -->

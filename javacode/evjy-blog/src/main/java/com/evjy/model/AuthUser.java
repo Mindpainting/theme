@@ -28,6 +28,7 @@ public class AuthUser implements Serializable {
     /**
      * 用户名（昵称）
      */
+
     private String userName;
 
     /**

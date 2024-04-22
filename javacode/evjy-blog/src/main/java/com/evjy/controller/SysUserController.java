@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.evjy.entity.SysUser;
 import com.evjy.model.ApiResult;
 import com.evjy.model.AuthUser;
+import com.evjy.model.User;
 import com.evjy.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,9 +27,9 @@ public class SysUserController {
     SysUserService userService;
 
     @GetMapping("/sample")
-    public ApiResult sample() {
-        log.error("error");
-        return new ApiResult(200, "hello");
+    public ApiResult sample(@Validated @RequestBody User valUser) {
+        log.info("info");
+        return new ApiResult(200, "hello", valUser);
     }
 
     /**

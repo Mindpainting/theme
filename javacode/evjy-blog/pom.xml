@@ -91,6 +91,12 @@
             <version>2.3.1</version>
         </dependency>
 
+        <!-- 全局统一参数校验 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

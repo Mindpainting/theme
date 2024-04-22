@@ -3,9 +3,9 @@ package com.evjy;
 import com.evjy.common.toolkit.RedisCache;
 import com.evjy.entity.SysUser;
 import com.evjy.mapper.SysUserMapper;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

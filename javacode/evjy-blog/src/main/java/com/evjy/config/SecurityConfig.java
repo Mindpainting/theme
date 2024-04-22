@@ -58,7 +58,8 @@ public class SecurityConfig {
 
                 // spring security6.2.3不再使用在配置类上添加@EnableGlobalMethodSecurity(prePostEnabled = true)，方法上使用@PreAuthorize("hasAnyAuthority('system:user:list')")来开启权限访问
                 // 下面这样配置即可
-                .requestMatchers("/user/sample").hasAnyAuthority("system:user:list")
+//                .requestMatchers("/user/sample").hasAnyAuthority("system:user:list")
+                .requestMatchers("/user/sample").permitAll()
 
                 .requestMatchers("/user/register").permitAll()
 
